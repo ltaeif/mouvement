@@ -1,0 +1,81 @@
+<?xml version="1.0" ?>
+<tmx version="1.4">
+    <header creationtool="eclipse"
+            creationtoolversion="3.4" 
+            segtype="sentence" 
+            o-tmf="n/a"
+            adminlang="fr-FR"
+            scrlang="fr-FR"
+            datatype="plaintext">
+    </header>
+    <body>
+    	
+    ********************Tabs etudiant************************	
+    
+    
+		<tu tuid="Civilite">
+            <tuv xml:lang="en">
+                <seg>Civilité * :</seg>
+            </tuv>
+            <tuv xml:lang="ar">
+                <seg>معلمات عامة</seg>
+            </tuv>
+            <tuv xml:lang="fr">
+                <seg>Civilité * : </seg>
+            </tuv>
+        </tu>
+        
+        
+        
+        <tu tuid="idetudiants">
+            <tuv xml:lang="en">
+                <seg>code de l'etudiant</seg>
+            </tuv>
+            <tuv xml:lang="ar">
+                <seg>معلمات عامة</seg>
+            </tuv>
+            <tuv xml:lang="fr">
+                <seg>Code de l'etudiant : </seg>
+            </tuv>
+        </tu>
+        
+        
+        <tu tuid="nomjeunefille">
+            <tuv xml:lang="en">
+                <seg>Nom de jeune fille</seg>
+            </tuv>
+            <tuv xml:lang="ar">
+                <seg>الإسم البنت</seg>
+            </tuv>
+            <tuv xml:lang="fr">
+                <seg>Nom de jeune fille</seg>
+            </tuv>
+        </tu>
+        
+        <tu tuid="Datedenaissance">
+            <tuv xml:lang="en">
+                <seg>Date de naissance </seg>
+            </tuv>
+            <tuv xml:lang="ar">
+                <seg>تاريخ الولدة</seg>
+            </tuv>
+            <tuv xml:lang="fr">
+                <seg>Date de naissance</seg>
+            </tuv>
+        </tu>
+        
+        <tu tuid="Lieudenaissance">
+            <tuv xml:lang="en">
+                <seg>Lieu de naissance </seg>
+            </tuv>
+            <tuv xml:lang="ar">
+                <seg>مكان الولدة</seg>
+            </tuv> 
+            <tuv xml:lang="fr">
+                <seg>Lieu de naissance</seg>
+            </tuv>
+        </tu>
+        
+
+    </body>
+</tmx>

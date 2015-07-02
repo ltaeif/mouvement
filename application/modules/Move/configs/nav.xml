@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configdata>
+<nav>
+
+	<projets>
+		<label>{{i class=||glyphicon glyphicon-list-alt||}}{{/i}}  Projet de formation</label> 
+        <module>habilitation</module>
+        <controller>projethabilitation</controller>  
+        <action>index</action>
+        <pages>
+         	<listesprojet>
+                <label>{{i class=||glyphicon glyphicon-list-alt||}}{{/i}} Projet de formation</label>
+                <module>habilitation</module>
+		        <controller>projethabilitation</controller>  
+		        <action>index</action> 
+            </listesprojet>  
+            <ajouterprojet>
+                <label>{{i class=||glyphicon glyphicon-pencil||}}{{/i}} Nouveau projet</label>
+                <module>habilitation</module>
+		        <controller>projethabilitation</controller>   
+		        <action>create</action>
+            </ajouterprojet>  
+             
+            <Consulter>
+                <label>{{i class=||glyphicon glyphicon-star-empty||}}{{/i}} Consulter un projet</label>
+                 <module>habilitation</module>
+		        <controller>projethabilitation</controller>   
+		        <action>project</action>  
+            </Consulter> 
+        </pages>
+	</projets>  
+	
+	<formations>
+                <label>{{i class=||fa fa-briefcase||}}{{/i}} Formations</label>
+                <module>habilitation</module>
+		        <controller>formations</controller>   
+		        <action>index</action>
+		         <pages>
+		         	<formations>
+		         		<label>{{i class=||fa fa-briefcase||}}{{/i}} Formations</label>
+		                <module>habilitation</module>
+				        <controller>formations</controller>   
+				        <action>index</action>
+				        <pages>
+				        	<add>
+					        	<label>{{i class=||fa fa-calendar||}}{{/i}} Ajouter</label>
+				                <module>habilitation</module>
+						        <controller>formations</controller> 
+						        <action>create</action>
+					        </add>
+				        </pages>
+		         	</formations>
+		         	 <Objectifs>
+		         		<label>{{i class=||fa fa-briefcase||}}{{/i}} Objectifs</label>
+		                <module>habilitation</module>
+				        <controller>objectifs</controller>   
+				        <action>index</action>
+				        <pages>
+				        	<add>
+					        	<label>{{i class=||fa fa-calendar||}}{{/i}} Ajouter</label>
+				                <module>habilitation</module>
+						        <controller>objectifs</controller> 
+						        <action>create</action>
+					        </add>
+				        </pages>
+		         	</Objectifs>
+		         	 
+		         	 
+		         </pages>  
+    </formations> 
+	
+	<config>
+		<label>{{i class=||fa fa-gears||}}{{/i}} Configuration</label> 
+        <module>habilitation</module>
+        <controller>enseignants</controller>  
+        <action>index</action>
+        <pages>
+        	 <anneeuniv>
+                <label>{{i class=||fa fa-calendar||}}{{/i}} Année univ.</label>
+                <module>habilitation</module>
+		        <controller>anneehabilitation</controller> 
+		        <action>index</action>  
+            </anneeuniv>  
+        	 <users>
+                <label>{{i class=||fa fa-user||}}{{/i}} Enseignants</label>
+                <module>habilitation</module>
+		        <controller>enseignants</controller> 
+		        <action>index</action>  
+            </users> 
+            <univ>
+                <label>{{i class=||fa fa-building-o||}}{{/i}} Univ.</label>
+                <module>habilitation</module>
+		        <controller>universites</controller> 
+		        <action>index</action>  
+            </univ>   
+            <etab>
+                <label>{{i class=||fa fa-home||}}{{/i}} Etab.</label>
+                <module>habilitation</module>
+		        <controller>etablissements</controller> 
+		        <action>index</action>  
+            </etab>  
+            <specialites>
+                <label>{{i class=||fa fa-home||}}{{/i}} Specialites</label>
+                <module>habilitation</module>
+		        <controller>specialites</controller> 
+		        <action>index</action>  
+            </specialites>  
+             <domaines>
+                <label>{{i class=||fa fa-home||}}{{/i}} Domaines</label>
+                <module>habilitation</module>
+		        <controller>domaines</controller> 
+		        <action>index</action>  
+            </domaines>  
+            
+             <regimeexamen>
+                <label>{{i class=||fa fa-home||}}{{/i}} Regime ex.</label>
+                <module>habilitation</module>
+		        <controller>regimeexamen</controller> 
+		        <action>index</action>  
+            </regimeexamen>
+             <semestres>
+                <label>{{i class=||fa fa-home||}}{{/i}} Semestres</label>
+                <module>habilitation</module>
+		        <controller>semestres</controller> 
+		        <action>index</action>  
+            </semestres>
+              <typeue>
+                <label>{{i class=||fa fa-home||}}{{/i}} type ue</label>
+                <module>habilitation</module>
+		        <controller>typeue</controller> 
+		        <action>index</action>  
+            </typeue>
+            
+             <enseignementecue>
+                <label>{{i class=||fa fa-home||}}{{/i}} Ens. ecue</label>
+                <module>habilitation</module>
+		        <controller>enseignementecue</controller> 
+		        <action>index</action>  
+            </enseignementecue>
+            
+        </pages>
+	</config>
+	 
+    
+    
+</nav>
+</configdata>

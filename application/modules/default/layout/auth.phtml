@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>Sharepoint</title>
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+        <!--[if lt IE 9]>
+          <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+
+        <!-- Le styles -->
+   
+    <!-- Bootstrap Core CSS -->
+ 
+    <?php $this->headLink()->appendStylesheet($this->baseUrl().'/bower_components/bootstrap/dist/css/bootstrap.min.css'); ?>
+    <?php $this->headLink()->appendStylesheet($this->baseUrl().'/bower_components/metisMenu/dist/metisMenu.min.css'); ?>  
+    <?php 
+    $this->headScript()->appendFile($this->baseUrl().'/bower_components/jquery/dist/jquery.min.js');
+    $this->headScript()->appendFile($this->baseUrl().'/bower_components/bootstrap/dist/js/bootstrap.min.js'); ?>
+    <!-- MetisMenu CSS -->
+ 
+     
+    <?php $this->headScript()->appendFile($this->baseUrl().'/bower_components/metisMenu/dist/metisMenu.min.js'); ?>
+    
+    
+    <!-- Custom CSS -->
+
+   <?php $this->headLink()->appendStylesheet($this->baseUrl().'/dist/css/sb-admin-2.css') ?>
+     <?php $this->headScript()->appendFile($this->baseUrl().'/dist/js/sb-admin-2.js'); ?>
+    <!-- Morris Charts CSS -->
+    
+<?php //$this->headLink()->appendStylesheet($this->baseUrl().'/bower_components/morrisjs/morris.css') ?>
+<?php //$this->headScript()->appendFile($this->baseUrl().'/bower_components/morrisjs/morris.js'); ?> 
+    <!-- Custom Fonts -->
+    
+<?php $this->headLink()->appendStylesheet($this->baseUrl().'/bower_components/font-awesome/css/font-awesome.min.css') ?>
+
+
+<?php 
+     
+     $this->headScript()->appendFile($this->baseUrl().'/bower_components/metisMenu/dist/metisMenu.min.js');
+     $this->headScript()->appendFile($this->baseUrl().'/bower_components/bootstrap/dist/js/bootstrap.min.js');
+     
+     $this->headScript()->appendFile($this->baseUrl().'/bower_components/raphael/raphael-min.js');
+     $this->headScript()->appendFile($this->baseUrl().'/bower_components/morrisjs/morris.min.js');
+    // $this->headScript()->appendFile($this->baseUrl().'/js/morris-data.js');
+ 	
+   ?>
+   
+   
+	<?php $this->headLink() ->prependStylesheet($this->baseUrl().'/bootstrap/css/bootstrap.min.css'); ?>
+	<?php $this->headLink() ->appendStylesheet($this->baseUrl().'/js/validator/css/validationEngine.jquery.css'); ?>
+	<?php $this->headLink() ->appendStylesheet($this->baseUrl().'/js/jqueryui/css/ui-lightness/jquery-ui-1.8.21.custom.css'); ?>
+	<?php $this->headLink() ->appendStylesheet($this->baseUrl().'/js/quickselect/chosen.min.css'); ?>
+	
+	  
+ 	<?php  $this->headScript()->appendFile($this->baseUrl().'/js/validator/languages/jquery.validationEngine-fr.js','text/javascript');?> 
+	<?php  $this->headScript()->appendFile($this->baseUrl().'/js/validator/jquery.validationEngine.js','text/javascript');?> 
+ 	<?php  $this->headScript()->appendFile($this->baseUrl().'/js/quickselect/chosen.jquery.js','text/javascript');?> 
+    <?php  $this->headScript()->appendFile($this->baseUrl().'/js/jquery.form.js','text/javascript');?> 
+   
+    <?php echo $this->headLink();?>
+    <?php echo $this->headScript();?>
+	
+	<style>
+	
+	.alert
+	{ 
+	  position: relative;
+	  margin-top: 76px;
+	}
+  
+	</style>
+    
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+<script type="text/javascript">
+jQuery(document).ready(function () {
+	
+
+	$.ajax({
+		type:"POST",
+		url:"<?=$this->url(array('action'=>'nouvelleinscript', 'controller'=>'gestauth','module'=>'default'))?>",
+		data:{id:'ajax'},
+		dataType: "html",
+		
+	  	beforeSend :function(){jQuery('#nouvelleinscription').html("Encours...");},
+		success:function(response){ 
+			jQuery("#nouvelleinscription").html(response); 
+		}
+	});
+});
+</script>
+         
+    </head>
+
+  <body>
+
+	<center>
+    <div>
+		<img src="<?=$this->baseUrl().'/images/bann.jpg';?>"/>
+	</div>
+	</center>
+
+  			<p style="  margin-top: -80px;">
+        <?php echo $this->layout()->content; ?>
+        	</p>
+        				
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+   
+  
+    
+
+   
+  
+
+</body></html>

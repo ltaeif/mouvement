@@ -1,0 +1,38 @@
+<?xml version="1.0" ?>
+<!DOCTYPE tmx SYSTEM "tmx14.dtd">
+<tmx version="1.4">
+ <header creationtoolversion="1.0.0" datatype="winres" segtype="sentence" adminlang="en-us" srclang="de-at" o-tmf="abc" creationtool="XYZTool" >
+ </header>
+    <body>
+        <tu tuid="etudiant">
+            <tuv xml:lang="en">
+                <seg>Student</seg>
+            </tuv>
+            <tuv xml:lang="ar">
+                <seg>الطلبت</seg>
+            </tuv>
+            <tuv xml:lang="fr">
+                <seg>Etudiant</seg>
+            </tuv>
+        </tu>
+        <tu tuid="matieres">
+            <tuv xml:lang="en">
+                <seg>Matieres</seg>
+            </tuv>
+            <tuv xml:lang="ar">
+                <seg>المواد</seg>
+            </tuv>
+            <tuv xml:lang="fr">
+                <seg>Matieres</seg>
+            </tuv>
+        </tu>
+        <tu tuid="adresse">
+            <tuv xml:lang="en">
+                <seg>Address</seg>
+            </tuv>
+            <tuv xml:lang="fr">
+                <seg>Adresse</seg>
+            </tuv>
+        </tu>
+    </body>
+</tmx>

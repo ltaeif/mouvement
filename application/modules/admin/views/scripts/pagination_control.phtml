@@ -1,0 +1,62 @@
+<style>
+
+    .pagination ul
+{
+margin: 0;
+padding: 0;
+list-style-type: none;
+text-align: center;
+}
+
+.pagination ul li { display: inline; }
+
+.pagination ul li a
+{
+text-decoration: none;
+padding: .2em 1em;
+color: #fff;
+background-color: #337ab7;
+}
+
+.pagination ul li a:hover
+{
+color: #fff;
+background-color: #369;
+}
+
+</style>
+<?php if ($this->pageCount): ?>
+<div class="pagination">
+<ul>
+<!-- Previous page link -->
+<?php if (isset($this->previous)): ?>
+  <li><a href="<?php echo $this->url($_GET + array('page' => $this->previous)); ?>">
+    «
+  </a></li>
+<?php else: ?>
+  <li class="disabled"><a>«</a></li>
+<?php endif; ?>
+ 
+<!-- Numbered page links -->
+<?php foreach ($this->pagesInRange as $page): ?>
+  <?php if ($page != $this->current): ?>
+   <li>
+    <a href="<?php echo $this->url($_GET + array('page' => $page)); ?>">
+        <?php echo $page; ?>
+    </a></li>
+  <?php else: ?>
+    <li class="active"><a><?php echo $page; ?></a></li>
+  <?php endif; ?>
+<?php endforeach; ?>
+ 
+<!-- Next page link -->
+<?php if (isset($this->next)): ?>
+  <li><a href="<?php echo $this->url($_GET + array('page' => $this->next)); ?>">
+    »
+  </a></li>
+<?php else: ?>
+   <li class="disabled"><a>»</a></li>
+<?php endif; ?>
+</ul>
+</div>
+<?php endif; ?>
