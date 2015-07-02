@@ -1,0 +1,33 @@
+
+C:\xampp\htdocs\mouvement>git remote -v
+
+C:\xampp\htdocs\mouvement>git remote set-url origin https://github.com/ltaeif/mo
+uvement.git
+fatal: No such remote 'origin'
+
+C:\xampp\htdocs\mouvement>git remote add origin https://github.com/ltaeif/mouvem
+ent.git
+
+C:\xampp\htdocs\mouvement>git remote -v
+origin  https://github.com/ltaeif/mouvement.git (fetch)
+origin  https://github.com/ltaeif/mouvement.git (push)
+
+C:\xampp\htdocs\mouvement>git commit -m 'fff'
+
+C:\xampp\htdocs\mouvement>git push -u origin master
+Username for 'https://github.com': fatal: could not read Username for 'https://g
+ithub.com': No such file o^C
+C:\xampp\htdocs\mouvement>git add .
+
+C:\xampp\htdocs\mouvement>git push -u origin master
+Username for 'https://github.com': ltaeif
+Password for 'https://ltaeif@github.com':
+To https://github.com/ltaeif/mouvement.git
+ ! [rejected]        master -> master (non-fast-forward)
+error: failed to push some refs to 'https://github.com/ltaeif/mouvement.git'
+hint: Updates were rejected because the tip of your current branch is behind
+hint: its remote counterpart. Integrate the remote changes (e.g.
+hint: 'git pull ...') before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+
+C:\xampp\htdocs\mouvement>
