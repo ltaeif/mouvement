@@ -1,0 +1,95 @@
+<?php
+$this->headTitle('Détails de la Demande');
+
+?>
+
+<?php if($this->demandeexist) {?>
+
+
+
+
+<div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header"><strong   font-size: 32px;>Veuillez consulter les détails de votre demande</strong></h1>
+                </div>
+                <!-- /.col-lg-12 -->
+ </div>
+ 
+ <?php if($this->demandeexist['etat']=='En Attente') {?>
+	 
+	  <div class="alert alert-warning" role="alert">
+      <strong>Warning!</strong> Demande en cours de traitement ......
+    </div>
+	
+ <?php }elseif($this->demandeexist['etat']=='Accepter') {?>
+	<div class="alert alert-success" role="alert">
+	 <strong>Well done!</strong> Demande acceptée .
+	</div>
+
+ <?php }else {?>
+	<div class="alert alert-danger" role="alert">
+	   <strong>Oh snap!</strong> Demande refusée .
+	</div>
+ <?php }?>
+
+	
+	 <div class="row">
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="">Demande <?=$this->demandeexist['type_demande']?></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge"><img src="<?php echo $this->baseUrl().'/images/edit.png';?>" width="128px"/></div>
+                                    <div></div>
+                                </div>
+                            </div>
+                        </div>
+                       <a href="<?=$this->url(array("module"=>"default","action"=>"verif","controller"=>$this->demandeexist['type_demande']))?>">
+						    <div class="panel-footer">
+                                <span class="pull-left">Voir détails</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+	
+	 
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <div class="row">
+							 <div class="col-xs-3">
+                                    <i class="">Documents</i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <i class=""><img src="<?php echo $this->baseUrl().'/images/folder-generic.png';?>" width="128px"/></i>
+                                </div>
+                                
+                            </div>
+                        </div>
+                       <a href="<?=$this->url(array("module"=>"default","action"=>"gestionfichier","controller"=>"demande","type"=>$this->demandeexist['type_demande']))?>">
+						    <div class="panel-footer">
+                                <span class="pull-left">Voir détails</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+	
+	 </div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+<?php } ?>
+

@@ -1,0 +1,201 @@
+  
+  <style>
+  
+  .error
+  {color: #b94a48;
+  background-color: #f2dede;
+  border-color: #eed3d7;
+  }
+  </style>
+<script>
+$(document).ready(function(){
+	
+ 
+	 $('select').chosen();
+	 /*var optmyformcp = { 
+			    beforeSend: function()  { },
+			    uploadProgress: function(event, position, total, percentComplete) { },
+			    success: function() {},
+				complete: function(response) 
+				{	
+					alert(JSON.parse(response));
+					if(response.responseText){
+						
+						var obj = JSON.parse(response.responseText);
+						
+						alert(obj.status);
+						if(obj.status=="success"){
+							$("#messageconfigcp").html("<font color='green'>"+obj.message+"</font>");
+							 document.location="<?=$this->url(array("action"=>"validermail","controller"=>"gestauth","module"=>"default","idsess"=>$this->idsess))?>";
+						}else if(obj.status=="valider"){
+							$("#messageconfigcp").html("<font color='green'>"+obj.message+"</font>");
+						}else if(obj.status=="Failed"){
+						alert('');
+							$("#messageconfigcp").html("<font color='red'>email ou CIN existant</font>");
+						}else{
+							$("#nouvelleinscription").html(response.responseText); 
+						} 
+					}
+					
+				},
+				success:function(response) 
+				{	
+				var obj = JSON.parse(response.responseText);
+					//$("#nouvelleinscription").html(response);
+					$("#messageconfigcp").html("<font color='green'>"+obj.message+"</font>");
+				},
+				error: function(response)
+				{	
+					//$("#nouvelleinscription").html(response);
+					alert('');
+					$("#messageconfigcp").html("<font color='red'>email ou CIN existant</font>");
+					
+				}
+			     
+			}; 
+				$("#comptecreation").ajaxForm(optmyformcp); */
+				
+				
+		 
+	 
+});
+
+
+function MyAjaxSubmit(laodplace){ 
+	
+	$("#comptecreation").validationEngine(); 
+	
+	 var valid = $("#comptecreation").validationEngine('validate');
+            var vars = $("#comptecreation").serialize();
+
+            if (valid == true) {
+
+                
+				$.ajax({
+					type:"POST",
+					url:$('#comptecreation').attr('action'),
+					data:$('#comptecreation').serialize(),
+					async : true,
+					beforeSend :function(){ 
+						 $('#'+laodplace).append("Encours...");
+						},
+					success:function(response){
+						var obj = JSON.parse(response);
+						//alert(obj.status);
+						
+							if(obj.status=="success"){
+								$("#messageconfigcp").html("<font color='green'>"+obj.message+"</font>");
+								document.location="<?=$this->url(array("action"=>"validermail","controller"=>"gestauth","module"=>"default"))?>";
+							}else if(obj.status=="Failed"){
+							
+								$("#messageconfigcp").html("<font color='red'>email ou CIN existant</font>");
+								
+								$("#messageconfigcp").attr('class',"alert alert-error");
+								
+							}
+						
+						return false;
+						}
+				});
+				
+				
+
+            } else {
+               
+            }
+			
+			
+	
+	
+	return false;
+}
+
+function AjaxVerif(page,params,typedata,laodplace){ 
+	
+	$.ajax({
+		type:"POST",
+		url:page,
+		data:{id:params,typedata:typedata},
+		beforeSend :function(){ 
+			 $('#'+laodplace).append("Encours...");
+		    },
+		success:function(response){
+			 
+	    	if (response){
+	    		$('#'+laodplace).html(response);
+	    	}
+		}
+	});
+}
+ 
+</script>
+<style>
+.form-horizontal .control-group {
+margin-bottom: 0;
+}
+ </style>
+ 
+ 
+ <?php if(!empty($this->messages['DbError'])):?>
+ <div class="alert alert-block alert-error fade in">
+            <button type="button" class="close" data-dismiss="alert">Ã—</button>
+            <h4 class="alert-heading">Erreur</h4>
+            <p> 
+            	<?= $this->messages['DbError'] ?>
+            <p>
+              <a class="btn btn-danger" href="#">EEE</a> <a class="btn" href="#">Or do this</a>
+            </p>
+          </div>
+<?php endif;?>
+<form id="comptecreation" method="post" 
+action="<?=$this->url(array('action'=>'ajaxcreationcompte','controller'=>'gestauth','module'=>'default'))?>" 
+      method="<?= $this->escape($this->form->getMethod()) ?>"  class="form-horizontal">
+	 <span style="font-size: 18px;color: #FF0000;font-style: oblique;">
+	 <?=$this->formation?>
+	 
+	 <?php //echo utf8_encode("(les nouveaux bacheliers n'ont pas le droit de s'inscrire, ancienneté au moins d'une année)")?></span>
+    <br/><br/>	 		
+   
+     <div class="col-md-10 col-md-offset-4" style="margin-left:16.333333%;margin-top: -65px;">
+                <div class="login-panel panel panel-default">
+				  
+				  <div id="messageconfigcp" ></div>
+				  
+                    <div class="panel-heading"> 
+                            
+    	<h3><?=utf8_encode("Créer")?> un compte pour s'inscrire</h3>
+    	</div>
+    	<div class="panel-body">
+    	<div class="row-fluid">
+    	 
+    		<div class="span12" id="emaildiv"> </div>
+    	</div>
+    	<?=$this->form->email?> 
+	    <?= $this->form->password ?>
+	    <?= $this->form->passwordcnf ?>
+    
+ 	
+    <fieldset>
+    
+    	<legend style="margin-bottom: 0px;">Identification du candidat </legend>
+    	
+    	<div class="row-fluid"> 
+    		<div class="span12" id="cindiv"> </div>
+    	</div>
+    	 		<?= $this->form->CIN ?> 
+    	 		
+    	 		<?= $this->form->nom ?> 
+    	 		<?= $this->form->prenom ?> 
+    	 		<?= $this->form->sex ?>  
+	      		<?php //$this->form->Nationalite ?> 
+  
+     
+	      <br/>
+	       </fieldset>
+	     <?=$this->form->captcha?>
+   <br/>
+    <?= $this->form->submit ?>
+  </div>
+  </div>
+  </div>  
+</form>

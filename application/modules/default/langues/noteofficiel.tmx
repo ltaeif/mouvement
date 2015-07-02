@@ -1,0 +1,102 @@
+<?xml version="1.0" ?>
+<tmx version="1.4">
+    <header creationtool="eclipse"
+            creationtoolversion="3.4" 
+            segtype="sentence" 
+            o-tmf="n/a"
+            adminlang="fr-FR"
+            scrlang="fr-FR"
+            datatype="plaintext">
+    </header>
+    <body>
+    	
+    ********************END Tabs etudiant*********************		
+    	
+    	
+    	 <tu tuid="note.msg.select.eltdiplome">
+            <tuv xml:lang="en">
+                <seg>.. </seg>
+            </tuv>
+            <tuv xml:lang="ar">
+                <seg>..</seg>
+            </tuv>
+            <tuv xml:lang="fr">
+                <seg>..</seg>
+            </tuv>
+        </tu>
+    	
+        <tu tuid="note.titre">
+            <tuv xml:lang="en">
+                <seg>Notes </seg>
+            </tuv>
+            <tuv xml:lang="ar">
+                <seg>بطاقت الأعداد</seg>
+            </tuv>
+            <tuv xml:lang="fr">
+                <seg>Feuille Notes des Examens</seg>
+            </tuv>
+        </tu>
+        
+         <tu tuid="note.regimenote">
+            <tuv xml:lang="en">
+                <seg>Régime de Notation: </seg>
+            </tuv>
+            <tuv xml:lang="ar">
+                <seg>بطاقت الأعداد</seg>
+            </tuv>
+            <tuv xml:lang="fr">
+                <seg>Régime de Notation:</seg>
+            </tuv>
+        </tu>
+        
+        <tu tuid="note.enseignant">
+            <tuv xml:lang="en">
+                <seg>Enseignant :</seg>
+            </tuv>
+            <tuv xml:lang="ar">
+                <seg>بطاقت الأعداد</seg>
+            </tuv>
+            <tuv xml:lang="fr">
+                <seg>Enseignant :</seg>
+            </tuv>
+        </tu>
+        
+        
+         <tu tuid="note.diplome">
+            <tuv xml:lang="en">
+                <seg>Diplome :</seg>
+            </tuv>
+            <tuv xml:lang="ar">
+                <seg>بطاقت الأعداد</seg>
+            </tuv>
+            <tuv xml:lang="fr">
+                <seg>Diplome :</seg>
+            </tuv>
+        </tu>
+        
+         <tu tuid="note.classe">
+            <tuv xml:lang="en">
+                <seg>Diplome :</seg>
+            </tuv>
+            <tuv xml:lang="ar">
+                <seg>بطاقت الأعداد</seg>
+            </tuv>
+            <tuv xml:lang="fr">
+                <seg>Classe :</seg>
+            </tuv>
+        </tu>
+        
+         <tu tuid="note.groupe">
+            <tuv xml:lang="en">
+                <seg>Diplome :</seg>
+            </tuv>
+            <tuv xml:lang="ar">
+                <seg>بطاقت الأعداد</seg>
+            </tuv>
+            <tuv xml:lang="fr">
+                <seg>Groupe :</seg>
+            </tuv>
+        </tu>
+        
+    </body>
+</tmx>

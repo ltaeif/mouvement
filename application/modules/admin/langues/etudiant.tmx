@@ -1,0 +1,193 @@
+<?xml version="1.0" ?>
+<tmx version="1.4">
+    <header creationtool="eclipse"
+            creationtoolversion="3.4" 
+            segtype="sentence" 
+            o-tmf="n/a"
+            adminlang="fr-FR"
+            scrlang="fr-FR"
+            datatype="plaintext">
+    </header>
+    <body>
+    	
+    ********************Tabs etudiant************************	
+		<tu tuid="idetudiants">
+            <tuv xml:lang="en">
+                <seg>code de l'etudiant</seg>
+            </tuv>
+            <tuv xml:lang="ar">
+                <seg>معلمات عامة</seg>
+            </tuv>
+            <tuv xml:lang="fr">
+                <seg>Code de l'etudiant : </seg>
+            </tuv>
+        </tu>
+
+    	 <tu tuid="entet-info-etudiant">
+            <tuv xml:lang="en">
+                <seg>Information géneral</seg>
+            </tuv>
+            <tuv xml:lang="ar">
+                <seg>معلمات عامة</seg>
+            </tuv>
+            <tuv xml:lang="fr">
+                <seg>Information géneral</seg>
+            </tuv>
+        </tu>
+        
+        <tu tuid="entet-coordonne-etudiant">
+            <tuv xml:lang="en">
+                <seg>Coordonnee</seg>
+            </tuv>
+            <tuv xml:lang="ar">
+                <seg>وسائل الإتصال </seg>
+            </tuv>
+            <tuv xml:lang="fr">
+                <seg>Coordonnee</seg>
+            </tuv>
+        </tu>
+    	
+    	<tu tuid="entet-tel-etudiant">
+            <tuv xml:lang="en">
+                <seg>Telephones</seg>
+            </tuv>
+            <tuv xml:lang="ar">
+                <seg>خطوط الهاتف الخصة</seg>
+            </tuv>
+            <tuv xml:lang="fr">
+                <seg>Telephones</seg>
+            </tuv>
+        </tu>
+    	
+    	<tu tuid="entet-antecidant-scolaire-etudiant">
+            <tuv xml:lang="en">
+                <seg>Coordonnee</seg>
+            </tuv>
+            <tuv xml:lang="ar">
+                <seg>وسائل الإتصال </seg>
+            </tuv>
+            <tuv xml:lang="fr">
+                <seg>Coordonnee</seg>
+            </tuv>
+        </tu>
+    	
+    	<tu tuid="entet-antecidant-medical-etudiant">
+            <tuv xml:lang="en">
+                <seg>Coordonnee</seg>
+            </tuv>
+            <tuv xml:lang="ar">
+                <seg>وسائل الإتصال </seg>
+            </tuv>
+            <tuv xml:lang="fr">
+                <seg>Coordonnee</seg>
+            </tuv>
+        </tu>
+    ********************END Tabs etudiant*********************		
+    	
+    	
+        <tu tuid="nom">
+            <tuv xml:lang="en">
+                <seg>First name</seg>
+            </tuv>
+            <tuv xml:lang="ar">
+                <seg>اللقب</seg>
+            </tuv>
+            <tuv xml:lang="fr">
+                <seg>Nom</seg>
+            </tuv>
+        </tu>
+        <tu tuid="prenom">
+            <tuv xml:lang="en">
+                <seg>Last name</seg>
+            </tuv>
+            <tuv xml:lang="ar">
+                <seg>الإسم</seg>
+            </tuv>
+            <tuv xml:lang="fr">
+                <seg>Prenom</seg>
+            </tuv>
+        </tu>
+        <tu tuid="adresse">
+            <tuv xml:lang="en">
+                <seg>Address</seg>
+            </tuv>
+            <tuv xml:lang="ar">
+                <seg>العنوان</seg>
+            </tuv>
+            <tuv xml:lang="fr">
+                <seg>Adresse</seg>
+            </tuv>
+        </tu>
+        <tu tuid="titre_ajout">
+            <tuv xml:lang="en">
+                <seg>َadd new student</seg>
+            </tuv>
+            <tuv xml:lang="ar">
+                <seg>إضافت طلب جديد</seg>
+            </tuv>
+            
+            <tuv xml:lang="fr">
+                <seg>Ajouter un nouveau etudiant</seg>
+            </tuv>
+        </tu>
+        
+        
+        <tu tuid="Email">
+            <tuv xml:lang="en">
+                <seg>E-mail</seg>
+            </tuv>
+            <tuv xml:lang="ar">
+                <seg>البريد الإلكتروني</seg>
+            </tuv>
+            <tuv xml:lang="fr">
+                <seg>E-mail</seg>
+            </tuv>
+        </tu>
+        <tu tuid="CIN">
+            <tuv xml:lang="en">
+                <seg>CIN</seg>
+            </tuv>
+            <tuv xml:lang="ar">
+                <seg>بطقة التعريف الوطنية</seg>
+            </tuv>
+            <tuv xml:lang="fr">
+                <seg>CIN</seg>
+            </tuv>
+        </tu>
+        
+        <tu tuid="telm">
+            <tuv xml:lang="en">
+                <seg>Téléphone mobile</seg>
+            </tuv>
+            <tuv xml:lang="ar">
+                <seg>رقم الهاتف الحوال</seg>
+            </tuv>
+            <tuv xml:lang="fr">
+                <seg>Téléphone mobile</seg>
+            </tuv>
+        </tu>
+        
+        <tu tuid="telp">
+            <tuv xml:lang="en">
+                <seg>Téléphone professionnel</seg>
+            </tuv>
+            <tuv xml:lang="ar">
+                <seg>رقم الهاتف الحوال</seg>
+            </tuv>
+            <tuv xml:lang="fr">
+                <seg>Téléphone professionnel</seg>
+            </tuv>
+        </tu>
+         <tu tuid="postal">
+            <tuv xml:lang="en">
+                <seg>Code postal</seg>
+            </tuv>
+            <tuv xml:lang="ar">
+                <seg>الترقيم البريدي</seg>
+            </tuv>
+            <tuv xml:lang="fr">
+                <seg>Code postal</seg>
+            </tuv>
+        </tu>
+    </body>
+</tmx>

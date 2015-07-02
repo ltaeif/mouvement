@@ -1,0 +1,174 @@
+<?php
+$this->headTitle('EtablissementLang Management');
+?>
+<?php
+$tableEtablissement = new Application_Model_Etablissement_DbTable();
+$tableLang = new Application_Model_Lang_DbTable();
+?>
+
+<script type="text/javascript">
+function toggleCheckboxes(source)
+{
+    var checkboxes = document.getElementsByName('del_id[]');
+    for (var i = 0; i < checkboxes.length; i++)
+    {
+        checkboxes[i].checked = source.checked;
+    }
+}
+
+function updateFilters(paramName, paramValue)
+{
+    var newQuery = [];
+    var args = {};
+    var query = location.search.indexOf('?') > -1 ? location.search.substring(1).split('&') : [];
+
+    for (var pairIndex = 0; pairIndex < query.length; pairIndex++) {
+        var param = query[pairIndex].split('=');
+        args[param[0]] = param[1];
+    }
+
+    args[paramName] = paramValue;
+    for (var key in args)
+    {
+        newQuery.push(key + '=' + encodeURIComponent(args[key]));
+    }
+
+    self.location.href = '?' + newQuery.join('&');
+}
+</script>
+
+<div class="page-header">
+   <h1>EtablissementLang Management</h1>
+</div>
+
+<div class="pull-right">
+<a class="btn btn-info" href="<?php echo $this->url(array('module' => 'admin','controller' => 'etablissement-lang', 'action' => 'index'), null, true); ?>"><i class=" icon-refresh icon-white"></i> Reset Filters</a>
+<a class="btn btn-success" href="<?php echo $this->url(array('module' => 'admin','controller' => 'etablissement-lang', 'action' => 'create'), null, true); ?>"><i class="icon-plus icon-white"></i> Add New</a></div><br />
+
+<form class="form form-inline" method="get" action="<?php echo $this->url(array('module' => 'admin','controller' => 'etablissement-lang', 'action' => 'index'), null, true); ?>">
+<div>
+<input class="input-medium search-query" placeholder="Keywords..." type="text" name="_kw" value="<?php echo htmlspecialchars($this->param_kw); ?>" /> 
+<?php echo $this->formSelect('_sm', $this->param_sm, array(), array (
+  'all' => 'All',
+  'etablissement_idetablissement' => 'Etablissement Idetablissement',
+  'intitule' => 'Intitule',
+  'abrev' => 'Abrev',
+)); ?>
+    
+<button class="btn" type="submit"><i class="icon-search"></i> Search</button>
+</div>
+</form>
+
+<form method="post" action="<?php echo $this->url(array('module' => 'admin','controller' => 'etablissement-lang', 'action' => 'delete'), null, true); ?>" onsubmit="return confirm('Delete selected rows?');">
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th><input type="checkbox" onchange="toggleCheckboxes(this);" /></th>
+            <th<?php if ('etablissement_idetablissement' == $this->sortField) echo ' class="sort-field sort-', htmlspecialchars($this->param_so), '"'; ?>>
+                Etablissement Idetablissement 
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'etablissement_idetablissement', '_so' => 'asc')); ?>'><i class='icon-arrow-up'></i></a>
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'etablissement_idetablissement', '_so' => 'desc')); ?>'><i class='icon-arrow-down'></i></a>
+                <?php
+    echo $this->formSelect('etablissement_idetablissement', $this->parametablissement_idetablissement, array('onchange' => 'updateFilters(\'etablissement_idetablissement\', this.options[this.selectedIndex].value)'), array('' => '- - Change - -') + $tableEtablissement->fetchPairs());
+?>
+            </th>
+            <th<?php if ('intitule' == $this->sortField) echo ' class="sort-field sort-', htmlspecialchars($this->param_so), '"'; ?>>
+                Intitule 
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'intitule', '_so' => 'asc')); ?>'><i class='icon-arrow-up'></i></a>
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'intitule', '_so' => 'desc')); ?>'><i class='icon-arrow-down'></i></a>
+                
+            </th>
+            <th<?php if ('abrev' == $this->sortField) echo ' class="sort-field sort-', htmlspecialchars($this->param_so), '"'; ?>>
+                Abrev 
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'abrev', '_so' => 'asc')); ?>'><i class='icon-arrow-up'></i></a>
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'abrev', '_so' => 'desc')); ?>'><i class='icon-arrow-down'></i></a>
+                
+            </th>
+            <th<?php if ('idetablissement_lang' == $this->sortField) echo ' class="sort-field sort-', htmlspecialchars($this->param_so), '"'; ?>>
+                Idetablissement Lang 
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'idetablissement_lang', '_so' => 'asc')); ?>'><i class='icon-arrow-up'></i></a>
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'idetablissement_lang', '_so' => 'desc')); ?>'><i class='icon-arrow-down'></i></a>
+                
+            </th>
+            <th<?php if ('lang_idlang1' == $this->sortField) echo ' class="sort-field sort-', htmlspecialchars($this->param_so), '"'; ?>>
+                Lang Idlang1 
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'lang_idlang1', '_so' => 'asc')); ?>'><i class='icon-arrow-up'></i></a>
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'lang_idlang1', '_so' => 'desc')); ?>'><i class='icon-arrow-down'></i></a>
+                <?php
+    echo $this->formSelect('lang_idlang1', $this->paramlang_idlang1, array('onchange' => 'updateFilters(\'lang_idlang1\', this.options[this.selectedIndex].value)'), array('' => '- - Change - -') + $tableLang->fetchPairs());
+?>
+            </th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tfoot>
+        <tr>
+            <th><input type="checkbox" onchange="toggleCheckboxes(this);" /></th>
+            <th<?php if ('etablissement_idetablissement' == $this->sortField) echo ' class="sort-field sort-', htmlspecialchars($this->param_so), '"'; ?>>
+                Etablissement Idetablissement 
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'etablissement_idetablissement', '_so' => 'asc')); ?>'><i class='icon-arrow-up'></i></a>
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'etablissement_idetablissement', '_so' => 'desc')); ?>'><i class='icon-arrow-down'></i></a>
+                <?php
+    echo $this->formSelect('etablissement_idetablissement', $this->parametablissement_idetablissement, array('onchange' => 'updateFilters(\'etablissement_idetablissement\', this.options[this.selectedIndex].value)'), array('' => '- - Change - -') + $tableEtablissement->fetchPairs());
+?>
+            </th>
+            <th<?php if ('intitule' == $this->sortField) echo ' class="sort-field sort-', htmlspecialchars($this->param_so), '"'; ?>>
+                Intitule 
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'intitule', '_so' => 'asc')); ?>'><i class='icon-arrow-up'></i></a>
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'intitule', '_so' => 'desc')); ?>'><i class='icon-arrow-down'></i></a>
+                
+            </th>
+            <th<?php if ('abrev' == $this->sortField) echo ' class="sort-field sort-', htmlspecialchars($this->param_so), '"'; ?>>
+                Abrev 
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'abrev', '_so' => 'asc')); ?>'><i class='icon-arrow-up'></i></a>
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'abrev', '_so' => 'desc')); ?>'><i class='icon-arrow-down'></i></a>
+                
+            </th>
+            <th<?php if ('idetablissement_lang' == $this->sortField) echo ' class="sort-field sort-', htmlspecialchars($this->param_so), '"'; ?>>
+                Idetablissement Lang 
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'idetablissement_lang', '_so' => 'asc')); ?>'><i class='icon-arrow-up'></i></a>
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'idetablissement_lang', '_so' => 'desc')); ?>'><i class='icon-arrow-down'></i></a>
+                
+            </th>
+            <th<?php if ('lang_idlang1' == $this->sortField) echo ' class="sort-field sort-', htmlspecialchars($this->param_so), '"'; ?>>
+                Lang Idlang1 
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'lang_idlang1', '_so' => 'asc')); ?>'><i class='icon-arrow-up'></i></a>
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'lang_idlang1', '_so' => 'desc')); ?>'><i class='icon-arrow-down'></i></a>
+                <?php
+    echo $this->formSelect('lang_idlang1', $this->paramlang_idlang1, array('onchange' => 'updateFilters(\'lang_idlang1\', this.options[this.selectedIndex].value)'), array('' => '- - Change - -') + $tableLang->fetchPairs());
+?>
+            </th>
+            <th>Actions</th>
+        </tr>
+    </tfoot>
+    <tbody>
+<?php foreach ($this->paginator as $row): ?>
+        <tr>
+            <td align="center"><input type="checkbox" name="del_id[]" value="<?php echo $row->idetablissement_lang; ?>" /></td>
+            <td><?php     $linkedRow = $tableEtablissement->find($row->etablissement_idetablissement)->current();
+    if ($linkedRow) {
+        echo htmlspecialchars($linkedRow->getZodekenAutoLabel());
+    } else {
+        echo htmlspecialchars($linkedRow->etablissement_idetablissement), ' (unlinked)';
+    } ?></td>
+            <td><?php echo htmlspecialchars($row->intitule); ?></td>
+            <td><?php echo htmlspecialchars($row->abrev); ?></td>
+            <td align="right"><?php echo htmlspecialchars($row->idetablissement_lang); ?></td>
+            <td><?php     $linkedRow = $tableLang->find($row->lang_idlang1)->current();
+    if ($linkedRow) {
+        echo htmlspecialchars($linkedRow->getZodekenAutoLabel());
+    } else {
+        echo htmlspecialchars($linkedRow->lang_idlang1), ' (unlinked)';
+    } ?></td>
+            <td align="center"><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'etablissement-lang', 'action' => 'update', 'id' => $row->idetablissement_lang), null, true); ?>">Edit</a> 
+    - <a onclick="return confirm('Confirm deletion!');" href="<?php echo $this->url(array('module' => 'admin','controller' => 'etablissement-lang', 'action' => 'delete', 'del_id' => $row->idetablissement_lang), null, true); ?>">Delete</a></td>
+        </tr>
+<?php endforeach; ?>
+    </tbody>
+</table><br />
+<button class="btn btn-danger" type="submit"><i class=" icon-trash icon-white"></i> Delete Selected Rows</button>
+</form>
+
+<?php echo $this->paginationControl($this->paginator,
+                                    'Sliding',
+                                    'pagination_control.phtml');

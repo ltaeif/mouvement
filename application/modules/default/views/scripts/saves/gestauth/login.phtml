@@ -1,0 +1,53 @@
+
+  <div class="container">
+        <div class="row">
+        
+		
+		 <?php if(!empty($this->error)) : ?>
+        <div class="alert alert-danger" role="alert">
+		 <?php echo "Login ou mote de passe incorrect";  ?>
+		</div>
+         <?php endif ?>
+            <div class="col-md-6" id="nouvelleinscription" style="float:left;" >
+ 				 
+          </div>
+            <div class="col-md-4 col-md-offset-4" style="margin-left:16.333333%">
+                <div class="login-panel panel panel-default">
+                    <div class="panel-heading">
+                    	<h3>J'ais <?=utf8_encode('déjà')?> un compte</h3>
+                        <h3 class="panel-title">Veuillez saisir vos coordonnees</h3>
+                    </div>
+                    <div class="panel-body">
+                        <form enctype="<?php echo $this->authform->getEnctype(); ?>" method="<?php echo $this->authform->getMethod(); ?>" action="<?php echo $this->authform->getAction(); ?>" id="<?php echo $this->authform->getId(); ?>">
+                            <fieldset>
+                                <div class="form-group">   
+                                    <?=$this->authform->email ?>
+                                </div>
+                                <div class="form-group">
+                                    <?=$this->authform->password ?>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input name="remember" type="checkbox" value="Remember Me">Remember Me
+                                    </label>
+                                </div>
+                                <!-- Change this to a button or input when using this as a form -->
+    
+           
+                                <?=$this->authform->submit ?>
+                              
+                                
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!-- 
+<form enctype="<?php echo $this->authform->getEnctype(); ?>" method="<?php echo $this->authform->getMethod(); ?>" action="<?php echo $this->authform->getAction(); ?>" id="<?php echo $this->authform->getId(); ?>">
+<?=$this->authform->email ?>
+<?=$this->authform->password ?>
+<?=$this->authform->submit ?>
+</form>-->

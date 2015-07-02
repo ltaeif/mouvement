@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configdata>
+<nav>
+
+	<admin>
+		<label>Gestion des preinscript</label> 
+        <module>admin</module>
+        <controller>inscrits</controller> 
+        <action>validation</action>
+        <pages>
+         	<ginscript>
+                <label>Gestion des preinscript</label>
+                <module>admin</module>
+                <controller>inscrits</controller> 
+                <action>validation</action> 
+            </ginscript>  
+           
+        </pages>
+	</admin>
+  
+     
+      
+ <payement>
+		<label>Gestion des Payement</label> 
+        <module>admin</module>
+        <controller>inscrits</controller> 
+        <action>listeinsript</action>
+        <pages>
+        	<gestpay>
+	        	<label>Gestion des Payement</label> 
+		        <module>admin</module>
+		        <controller>inscrits</controller> 
+		        <action>listeinsript</action>
+	        </gestpay>
+	        <listeinscriptpay>
+	        	<label>Etat détaillé des payements</label> 
+		        <module>admin</module>
+		        <controller>payements</controller> 
+		        <action>listeinsript</action>
+	        </listeinscriptpay>
+        </pages>
+	</payement>
+    
+    
+	
+	<gsession>
+		<label>Gestion des session de préinscription</label> 
+        <module>admin</module>
+        <controller>gsessions</controller> 
+        <action>sessions</action>
+        <ressource>gsessions</ressource>
+         <pages>
+       		<listersessions> 
+        		<label>Sessions</label> 
+	        	<module>admin</module>
+	        	<controller>gsessions</controller> 
+	        	<action>sessions</action>
+	        	 
+	        </listersessions> 
+	       
+        </pages>
+	</gsession>
+	
+	
+	<parametrage> 
+			<label>Parametrage</label> 
+	        <module>admin</module>
+	        <controller>gformation</controller> 
+	        <action>adminparametrage</action>  
+	        <ressource>admin</ressource>
+	</parametrage>
+	
+	
+	<systeme> 
+			<label>Systeme</label> 
+	        <module>admin</module>
+	        <controller>systeme</controller> 
+	        <action>index</action>  
+	        <ressource>admin</ressource>
+	        <pages>
+	        	<gService> 
+	        		<label>Service</label> 
+			        <module>admin</module>
+			        <controller>systeme</controller> 
+			        <action>paramservices</action>  
+			        <ressource>admin</ressource>
+		        </gService>
+	        
+	       		<gusers> 
+	        		<label>Utilisateur</label> 
+			        <module>admin</module>
+			        <controller>systeme</controller> 
+			        <action>utilisateur</action>  
+			        <ressource>admin</ressource>
+		        </gusers>  
+		         
+		        
+		        <gSysteme> 
+	        		<label>Droit</label> 
+			        <module>admin</module>
+			        <controller>systeme</controller> 
+			        <action>parametredroits</action>  
+			        <ressource>admin</ressource>
+		        </gSysteme>  
+		        
+		          <gMenue> 
+	        		<label>Menus</label> 
+			        <module>admin</module>
+			        <controller>systeme</controller> 
+			        <action>parametremenu</action>  
+			        <ressource>admin</ressource>
+		        </gMenue>  
+	       
+        	</pages>
+	</systeme>
+	
+</nav>
+</configdata>

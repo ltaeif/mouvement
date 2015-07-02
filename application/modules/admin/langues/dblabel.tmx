@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<tmx version="1.4">
+    <header creationtool="eclipse"
+            creationtoolversion="3.4" 
+            segtype="sentence" 
+            o-tmf="n/a"
+            adminlang="fr-FR"
+            scrlang="fr-FR"
+            datatype="plaintext">
+    </header>
+    <body>
+    	
+    ********************END Tabs etudiant*********************		
+    	
+    	
+    	 <tu tuid="dblabel.elttypediplome">
+            <tuv xml:lang="en">
+                <seg>labelan</seg>
+            </tuv>
+            <tuv xml:lang="ar">
+                <seg>labelar</seg>
+            </tuv>
+            <tuv xml:lang="fr">
+                <seg>labelfr</seg>
+            </tuv>
+        </tu>
+    	
+       
+        
+    </body>
+</tmx>

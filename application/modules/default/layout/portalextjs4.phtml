@@ -1,0 +1,45 @@
+<!-- application/layouts/scripts/layout.phtml -->
+<?php echo $this->doctype() ?>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-language" content="fr_FR">
+  
+  <title>E-University</title>
+
+   <?php
+   header('Access-Control-Allow-Origin: *');
+
+?>
+   <?php 
+   		echo $this->headLink()->appendStylesheet($this->baseUrl().'/resources/js/extjs/resources/css/ext-all.css') 
+   							  ->appendStylesheet($this->baseUrl().'/resources/css/style.css')
+   							  ->appendStylesheet($this->baseUrl().'/resources/css/iconecss.css')
+   							  ->prependStylesheet($this->baseUrl().'/resources/js/css/portal.css')
+   							  ->prependStylesheet($this->baseUrl().'/resources/js/jqueryui/css/ui-lightness/jquery-ui-1.8.21.custom.css')
+   		;
+   ?>
+   
+   <?php 
+   		echo $this->headScript()->prependFile($this->baseUrl().'/resources/js/extjs/ext-all-debug.js','text/javascript')
+								->appendFile($this->baseUrl().'/resources/js/euniversity/startup.js','text/javascript') 
+								->appendFile($this->baseUrl().'/resources/js/euniversity/app.js','text/javascript')
+								->appendFile($this->baseUrl().'/resources/js/jqueryui/js/jquery-1.7.2.min.js','text/javascript')
+								->appendFile($this->baseUrl().'/resources/js/jqueryui/js/jquery-ui-1.8.21.custom.min.js','text/javascript')
+   		;					
+   ?>
+</head>
+<body>
+	
+	
+
+
+<div id="content">
+<?php echo $this->layout()->content; ?>
+</div> 
+ 
+ 
+<div id="footer" ></div>
+</body>
+</html>

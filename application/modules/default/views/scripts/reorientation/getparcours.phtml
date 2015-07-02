@@ -1,0 +1,17 @@
+
+	
+	
+	<option value="">- - Select - -</option>
+     <?php
+    
+    foreach ($this->parcours as $element):
+        /* @var $element Zend_Form_Element */
+        ?>
+	<option value="<?=$element['id']?>"><?=$element['ldiplome']?>- -<?=$element['specialite']?> - - <?=$element['domaine']?><?=$element['mention']?><?=$element['diplome_specialite']?></option>
+	<?php
+    endforeach;
+        ?>
+		
+
+
+  

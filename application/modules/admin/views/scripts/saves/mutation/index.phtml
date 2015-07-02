@@ -1,0 +1,309 @@
+<?php
+$this->headTitle('Mutation Management');
+?>
+<?php
+$tableDemande = new Application_Model_Demande_DbTable();
+$tableVille = new Application_Model_Ville_DbTable();
+$tableParcours = new Application_Model_Parcours_DbTable();
+$tableEtablissement = new Application_Model_Etablissement_DbTable();
+?>
+
+<script type="text/javascript">
+function toggleCheckboxes(source)
+{
+    var checkboxes = document.getElementsByName('del_id[]');
+    for (var i = 0; i < checkboxes.length; i++)
+    {
+        checkboxes[i].checked = source.checked;
+    }
+}
+
+function updateFilters(paramName, paramValue)
+{
+    var newQuery = [];
+    var args = {};
+    var query = location.search.indexOf('?') > -1 ? location.search.substring(1).split('&') : [];
+
+    for (var pairIndex = 0; pairIndex < query.length; pairIndex++) {
+        var param = query[pairIndex].split('=');
+        args[param[0]] = param[1];
+    }
+
+    args[paramName] = paramValue;
+    for (var key in args)
+    {
+        newQuery.push(key + '=' + encodeURIComponent(args[key]));
+    }
+
+    self.location.href = '?' + newQuery.join('&');
+}
+</script>
+
+<div class="page-header">
+   <h1>Mutation Management</h1>
+</div>
+
+<div class="pull-right">
+<a class="btn btn-info" href="<?php echo $this->url(array('module' => 'admin','controller' => 'mutation', 'action' => 'index'), null, true); ?>"><i class=" icon-refresh icon-white"></i> Reset Filters</a>
+<a class="btn btn-success" href="<?php echo $this->url(array('module' => 'admin','controller' => 'mutation', 'action' => 'create'), null, true); ?>"><i class="icon-plus icon-white"></i> Add New</a></div><br />
+
+<form class="form form-inline" method="get" action="<?php echo $this->url(array('module' => 'admin','controller' => 'mutation', 'action' => 'index'), null, true); ?>">
+<div>
+<input class="input-medium search-query" placeholder="Keywords..." type="text" name="_kw" value="<?php echo htmlspecialchars($this->param_kw); ?>" /> 
+<?php echo $this->formSelect('_sm', $this->param_sm, array(), array (
+  'all' => 'All',
+  'section_actuelle' => 'Section Actuelle',
+  'description_sanction' => 'Description Sanction',
+  'autres' => 'Autres',
+  'etablissement_demande' => 'Etablissement Demande',
+)); ?>
+    
+<button class="btn" type="submit"><i class="icon-search"></i> Search</button>
+</div>
+</form>
+
+<form method="post" action="<?php echo $this->url(array('module' => 'admin','controller' => 'mutation', 'action' => 'delete'), null, true); ?>" onsubmit="return confirm('Delete selected rows?');">
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th><input type="checkbox" onchange="toggleCheckboxes(this);" /></th>
+            <th<?php if ('codedem' == $this->sortField) echo ' class="sort-field sort-', htmlspecialchars($this->param_so), '"'; ?>>
+                Codedem 
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'codedem', '_so' => 'asc')); ?>'><i class='icon-arrow-up'></i></a>
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'codedem', '_so' => 'desc')); ?>'><i class='icon-arrow-down'></i></a>
+                <?php
+    echo $this->formSelect('codedem', $this->paramcodedem, array('onchange' => 'updateFilters(\'codedem\', this.options[this.selectedIndex].value)'), array('' => '- - Change - -') + $tableDemande->fetchPairs());
+?>
+            </th>
+            <th<?php if ('ville' == $this->sortField) echo ' class="sort-field sort-', htmlspecialchars($this->param_so), '"'; ?>>
+                Ville 
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'ville', '_so' => 'asc')); ?>'><i class='icon-arrow-up'></i></a>
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'ville', '_so' => 'desc')); ?>'><i class='icon-arrow-down'></i></a>
+                <?php
+    echo $this->formSelect('ville', $this->paramville, array('onchange' => 'updateFilters(\'ville\', this.options[this.selectedIndex].value)'), array('' => '- - Change - -') + $tableVille->fetchPairs());
+?>
+            </th>
+            <th<?php if ('section_actuelle' == $this->sortField) echo ' class="sort-field sort-', htmlspecialchars($this->param_so), '"'; ?>>
+                Section Actuelle 
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'section_actuelle', '_so' => 'asc')); ?>'><i class='icon-arrow-up'></i></a>
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'section_actuelle', '_so' => 'desc')); ?>'><i class='icon-arrow-down'></i></a>
+                
+            </th>
+            <th<?php if ('niveau_actuelle' == $this->sortField) echo ' class="sort-field sort-', htmlspecialchars($this->param_so), '"'; ?>>
+                Niveau Actuelle 
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'niveau_actuelle', '_so' => 'asc')); ?>'><i class='icon-arrow-up'></i></a>
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'niveau_actuelle', '_so' => 'desc')); ?>'><i class='icon-arrow-down'></i></a>
+                <?php echo $this->formSelect('niveau_actuelle', $this->paramniveau_actuelle, array('onchange' => 'updateFilters(\'niveau_actuelle\', this.options[this.selectedIndex].value)'), array (
+  '' => '- - Change - -',
+  '1ere année' => '1ere année',
+  '2eme année' => '2eme année',
+  '3eme année' => '3eme année',
+)); ?>
+            </th>
+            <th<?php if ('resultat' == $this->sortField) echo ' class="sort-field sort-', htmlspecialchars($this->param_so), '"'; ?>>
+                Resultat 
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'resultat', '_so' => 'asc')); ?>'><i class='icon-arrow-up'></i></a>
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'resultat', '_so' => 'desc')); ?>'><i class='icon-arrow-down'></i></a>
+                <?php echo $this->formSelect('resultat', $this->paramresultat, array('onchange' => 'updateFilters(\'resultat\', this.options[this.selectedIndex].value)'), array (
+  '' => '- - Change - -',
+  'admis' => 'admis',
+  'redoublant' => 'redoublant',
+)); ?>
+            </th>
+            <th<?php if ('description_sanction' == $this->sortField) echo ' class="sort-field sort-', htmlspecialchars($this->param_so), '"'; ?>>
+                Description Sanction 
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'description_sanction', '_so' => 'asc')); ?>'><i class='icon-arrow-up'></i></a>
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'description_sanction', '_so' => 'desc')); ?>'><i class='icon-arrow-down'></i></a>
+                
+            </th>
+            <th<?php if ('autres' == $this->sortField) echo ' class="sort-field sort-', htmlspecialchars($this->param_so), '"'; ?>>
+                Autres 
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'autres', '_so' => 'asc')); ?>'><i class='icon-arrow-up'></i></a>
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'autres', '_so' => 'desc')); ?>'><i class='icon-arrow-down'></i></a>
+                
+            </th>
+            <th<?php if ('section_demande' == $this->sortField) echo ' class="sort-field sort-', htmlspecialchars($this->param_so), '"'; ?>>
+                Section Demande 
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'section_demande', '_so' => 'asc')); ?>'><i class='icon-arrow-up'></i></a>
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'section_demande', '_so' => 'desc')); ?>'><i class='icon-arrow-down'></i></a>
+                <?php
+    echo $this->formSelect('section_demande', $this->paramsection_demande, array('onchange' => 'updateFilters(\'section_demande\', this.options[this.selectedIndex].value)'), array('' => '- - Change - -') + $tableParcours->fetchPairs());
+?>
+            </th>
+            <th<?php if ('etablissement_demande' == $this->sortField) echo ' class="sort-field sort-', htmlspecialchars($this->param_so), '"'; ?>>
+                Etablissement Demande 
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'etablissement_demande', '_so' => 'asc')); ?>'><i class='icon-arrow-up'></i></a>
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'etablissement_demande', '_so' => 'desc')); ?>'><i class='icon-arrow-down'></i></a>
+                <?php
+    echo $this->formSelect('etablissement_demande', $this->parametablissement_demande, array('onchange' => 'updateFilters(\'etablissement_demande\', this.options[this.selectedIndex].value)'), array('' => '- - Change - -') + $tableEtablissement->fetchPairs());
+?>
+            </th>
+            <th<?php if ('cause' == $this->sortField) echo ' class="sort-field sort-', htmlspecialchars($this->param_so), '"'; ?>>
+                Cause 
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'cause', '_so' => 'asc')); ?>'><i class='icon-arrow-up'></i></a>
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'cause', '_so' => 'desc')); ?>'><i class='icon-arrow-down'></i></a>
+                <?php echo $this->formSelect('cause', $this->paramcause, array('onchange' => 'updateFilters(\'cause\', this.options[this.selectedIndex].value)'), array (
+  '' => '- - Change - -',
+  'Sante' => 'Sante',
+  'Social' => 'Social',
+  'Autres' => 'Autres',
+)); ?>
+            </th>
+            <th<?php if ('type_sanction' == $this->sortField) echo ' class="sort-field sort-', htmlspecialchars($this->param_so), '"'; ?>>
+                Type Sanction 
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'type_sanction', '_so' => 'asc')); ?>'><i class='icon-arrow-up'></i></a>
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'type_sanction', '_so' => 'desc')); ?>'><i class='icon-arrow-down'></i></a>
+                <?php echo $this->formSelect('type_sanction', $this->paramtype_sanction, array('onchange' => 'updateFilters(\'type_sanction\', this.options[this.selectedIndex].value)'), array (
+  '' => '- - Change - -',
+  'Non' => 'Non',
+  'Oui' => 'Oui',
+)); ?>
+            </th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tfoot>
+        <tr>
+            <th><input type="checkbox" onchange="toggleCheckboxes(this);" /></th>
+            <th<?php if ('codedem' == $this->sortField) echo ' class="sort-field sort-', htmlspecialchars($this->param_so), '"'; ?>>
+                Codedem 
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'codedem', '_so' => 'asc')); ?>'><i class='icon-arrow-up'></i></a>
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'codedem', '_so' => 'desc')); ?>'><i class='icon-arrow-down'></i></a>
+                <?php
+    echo $this->formSelect('codedem', $this->paramcodedem, array('onchange' => 'updateFilters(\'codedem\', this.options[this.selectedIndex].value)'), array('' => '- - Change - -') + $tableDemande->fetchPairs());
+?>
+            </th>
+            <th<?php if ('ville' == $this->sortField) echo ' class="sort-field sort-', htmlspecialchars($this->param_so), '"'; ?>>
+                Ville 
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'ville', '_so' => 'asc')); ?>'><i class='icon-arrow-up'></i></a>
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'ville', '_so' => 'desc')); ?>'><i class='icon-arrow-down'></i></a>
+                <?php
+    echo $this->formSelect('ville', $this->paramville, array('onchange' => 'updateFilters(\'ville\', this.options[this.selectedIndex].value)'), array('' => '- - Change - -') + $tableVille->fetchPairs());
+?>
+            </th>
+            <th<?php if ('section_actuelle' == $this->sortField) echo ' class="sort-field sort-', htmlspecialchars($this->param_so), '"'; ?>>
+                Section Actuelle 
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'section_actuelle', '_so' => 'asc')); ?>'><i class='icon-arrow-up'></i></a>
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'section_actuelle', '_so' => 'desc')); ?>'><i class='icon-arrow-down'></i></a>
+                
+            </th>
+            <th<?php if ('niveau_actuelle' == $this->sortField) echo ' class="sort-field sort-', htmlspecialchars($this->param_so), '"'; ?>>
+                Niveau Actuelle 
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'niveau_actuelle', '_so' => 'asc')); ?>'><i class='icon-arrow-up'></i></a>
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'niveau_actuelle', '_so' => 'desc')); ?>'><i class='icon-arrow-down'></i></a>
+                <?php echo $this->formSelect('niveau_actuelle', $this->paramniveau_actuelle, array('onchange' => 'updateFilters(\'niveau_actuelle\', this.options[this.selectedIndex].value)'), array (
+  '' => '- - Change - -',
+  '1ere année' => '1ere année',
+  '2eme année' => '2eme année',
+  '3eme année' => '3eme année',
+)); ?>
+            </th>
+            <th<?php if ('resultat' == $this->sortField) echo ' class="sort-field sort-', htmlspecialchars($this->param_so), '"'; ?>>
+                Resultat 
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'resultat', '_so' => 'asc')); ?>'><i class='icon-arrow-up'></i></a>
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'resultat', '_so' => 'desc')); ?>'><i class='icon-arrow-down'></i></a>
+                <?php echo $this->formSelect('resultat', $this->paramresultat, array('onchange' => 'updateFilters(\'resultat\', this.options[this.selectedIndex].value)'), array (
+  '' => '- - Change - -',
+  'admis' => 'admis',
+  'redoublant' => 'redoublant',
+)); ?>
+            </th>
+            <th<?php if ('description_sanction' == $this->sortField) echo ' class="sort-field sort-', htmlspecialchars($this->param_so), '"'; ?>>
+                Description Sanction 
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'description_sanction', '_so' => 'asc')); ?>'><i class='icon-arrow-up'></i></a>
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'description_sanction', '_so' => 'desc')); ?>'><i class='icon-arrow-down'></i></a>
+                
+            </th>
+            <th<?php if ('autres' == $this->sortField) echo ' class="sort-field sort-', htmlspecialchars($this->param_so), '"'; ?>>
+                Autres 
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'autres', '_so' => 'asc')); ?>'><i class='icon-arrow-up'></i></a>
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'autres', '_so' => 'desc')); ?>'><i class='icon-arrow-down'></i></a>
+                
+            </th>
+            <th<?php if ('section_demande' == $this->sortField) echo ' class="sort-field sort-', htmlspecialchars($this->param_so), '"'; ?>>
+                Section Demande 
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'section_demande', '_so' => 'asc')); ?>'><i class='icon-arrow-up'></i></a>
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'section_demande', '_so' => 'desc')); ?>'><i class='icon-arrow-down'></i></a>
+                <?php
+    echo $this->formSelect('section_demande', $this->paramsection_demande, array('onchange' => 'updateFilters(\'section_demande\', this.options[this.selectedIndex].value)'), array('' => '- - Change - -') + $tableParcours->fetchPairs());
+?>
+            </th>
+            <th<?php if ('etablissement_demande' == $this->sortField) echo ' class="sort-field sort-', htmlspecialchars($this->param_so), '"'; ?>>
+                Etablissement Demande 
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'etablissement_demande', '_so' => 'asc')); ?>'><i class='icon-arrow-up'></i></a>
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'etablissement_demande', '_so' => 'desc')); ?>'><i class='icon-arrow-down'></i></a>
+                <?php
+    echo $this->formSelect('etablissement_demande', $this->parametablissement_demande, array('onchange' => 'updateFilters(\'etablissement_demande\', this.options[this.selectedIndex].value)'), array('' => '- - Change - -') + $tableEtablissement->fetchPairs());
+?>
+            </th>
+            <th<?php if ('cause' == $this->sortField) echo ' class="sort-field sort-', htmlspecialchars($this->param_so), '"'; ?>>
+                Cause 
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'cause', '_so' => 'asc')); ?>'><i class='icon-arrow-up'></i></a>
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'cause', '_so' => 'desc')); ?>'><i class='icon-arrow-down'></i></a>
+                <?php echo $this->formSelect('cause', $this->paramcause, array('onchange' => 'updateFilters(\'cause\', this.options[this.selectedIndex].value)'), array (
+  '' => '- - Change - -',
+  'Sante' => 'Sante',
+  'Social' => 'Social',
+  'Autres' => 'Autres',
+)); ?>
+            </th>
+            <th<?php if ('type_sanction' == $this->sortField) echo ' class="sort-field sort-', htmlspecialchars($this->param_so), '"'; ?>>
+                Type Sanction 
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'type_sanction', '_so' => 'asc')); ?>'><i class='icon-arrow-up'></i></a>
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'type_sanction', '_so' => 'desc')); ?>'><i class='icon-arrow-down'></i></a>
+                <?php echo $this->formSelect('type_sanction', $this->paramtype_sanction, array('onchange' => 'updateFilters(\'type_sanction\', this.options[this.selectedIndex].value)'), array (
+  '' => '- - Change - -',
+  'Non' => 'Non',
+  'Oui' => 'Oui',
+)); ?>
+            </th>
+            <th>Actions</th>
+        </tr>
+    </tfoot>
+    <tbody>
+<?php foreach ($this->paginator as $row): ?>
+        <tr>
+            <td align="center"><input type="checkbox" name="del_id[]" value="<?php echo $row->codedem; ?>" /></td>
+            <td><?php     $linkedRow = $tableDemande->find($row->codedem)->current();
+    if ($linkedRow) {
+        echo htmlspecialchars($linkedRow->getZodekenAutoLabel());
+    } else {
+        echo htmlspecialchars($linkedRow->codedem), ' (unlinked)';
+    } ?></td>
+            <td><?php     $linkedRow = $tableVille->find($row->ville)->current();
+    if ($linkedRow) {
+        echo htmlspecialchars($linkedRow->getZodekenAutoLabel());
+    } else {
+        echo htmlspecialchars($linkedRow->ville), ' (unlinked)';
+    } ?></td>
+            <td><?php echo htmlspecialchars($row->section_actuelle); ?></td>
+            <td><?php echo htmlspecialchars($row->niveau_actuelle); ?></td>
+            <td><?php echo htmlspecialchars($row->resultat); ?></td>
+            <td><?php echo htmlspecialchars($row->description_sanction); ?></td>
+            <td><?php echo htmlspecialchars($row->autres); ?></td>
+            <td><?php     $linkedRow = $tableParcours->find($row->section_demande)->current();
+    if ($linkedRow) {
+        echo htmlspecialchars($linkedRow->getZodekenAutoLabel());
+    } else {
+        echo htmlspecialchars($linkedRow->section_demande), ' (unlinked)';
+    } ?></td>
+            <td><?php     $linkedRow = $tableEtablissement->find($row->etablissement_demande)->current();
+    if ($linkedRow) {
+        echo htmlspecialchars($linkedRow->getZodekenAutoLabel());
+    } else {
+        echo htmlspecialchars($linkedRow->etablissement_demande), ' (unlinked)';
+    } ?></td>
+            <td><?php echo htmlspecialchars($row->cause); ?></td>
+            <td><?php echo htmlspecialchars($row->type_sanction); ?></td>
+            <td align="center"><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'mutation', 'action' => 'update', 'id' => $row->codedem), null, true); ?>">Edit</a> 
+    - <a onclick="return confirm('Confirm deletion!');" href="<?php echo $this->url(array('module' => 'admin','controller' => 'mutation', 'action' => 'delete', 'del_id' => $row->codedem), null, true); ?>">Delete</a></td>
+        </tr>
+<?php endforeach; ?>
+    </tbody>
+</table><br />
+<button class="btn btn-danger" type="submit"><i class=" icon-trash icon-white"></i> Delete Selected Rows</button>
+</form>
+
+<?php echo $this->paginationControl($this->paginator,
+                                    'Sliding',
+                                    'pagination_control.phtml');
