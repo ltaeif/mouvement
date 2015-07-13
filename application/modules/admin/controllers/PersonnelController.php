@@ -10,6 +10,16 @@
  */
 class Admin_PersonnelController extends Zend_Controller_Action
 {
+
+    public function init()
+    {
+
+        /* Initialize action controller here */
+        $this->_helper->layout()->setLayout("home");
+
+    }
+
+
     public function indexAction()
     {
         $this->getFrontController()->getRequest()->setParams($_GET);
@@ -41,7 +51,7 @@ class Admin_PersonnelController extends Zend_Controller_Action
     
     public function createAction()
     {
-        $form = new Application_Form_EditPersonnel();
+        $form = new Application_Myforms_EditPersonnel();
             
         if ($this->_request->isPost()) {
             if ($form->isValid($this->_request->getPost())) {
@@ -61,7 +71,7 @@ class Admin_PersonnelController extends Zend_Controller_Action
     public function updateAction()
     {
         $tablePersonnel = new Application_Model_Personnel_DbTable();
-        $form = new Application_Form_EditPersonnel();
+        $form = new Application_Myforms_EditPersonnel();
         $id = (int) $this->_getParam('id', 0);
         
         $row = $tablePersonnel->find($id)->current();

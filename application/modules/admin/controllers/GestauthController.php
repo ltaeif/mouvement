@@ -18,9 +18,14 @@ public function loginAction()
     {	
 	
 	$authstr = Zend_Auth::getInstance();
+
+    //$namespace="Zend_Auth_Admin";
+    //$authstr->setStorage(new Zend_Auth_Storage_Session($namespace));
+
 	
-	if($authstr->getStorage()->read()!=null) 
+	if($authstr->getStorage()->read()!=null)
 	{	$this->_helper->redirector("home","index","admin");}
+
 	
 	
     	//$this->_helper->layout()->disableLayout(); 
@@ -48,21 +53,26 @@ public function loginAction()
     			$authAdapter->setCredential($formData["password"]);
     
     			// do the authentication
-    			$auth = Zend_Auth_Admin::getInstance();
+
     			 
-    			$result = $auth->authenticate($authAdapter);
+    			$result = $authstr->authenticate($authAdapter);
     			
-				
+
 				
     			//	die();
     			if ($result->isValid()) {
     				// success: store database row to auth's storage
     				// system. (Not the password though!)
     				$data = $authAdapter->getResultRowObject(null, 'password');
-    			  
-					
-    				
-    				$auth->getStorage()->write($data); 
+
+
+                    //print_r($data);
+                    $authstr->getStorage()->write($data);
+
+
+
+
+
     				/*****************init annee scolaire*****************/  
     				try {
     					try {
@@ -84,20 +94,20 @@ public function loginAction()
     				/***************************/
     				
     				 // interrogation de la table personnel
-    				 //si login est dans personnel redirect module personnel 
+    				 //si login est dans personnel pirect module personnel
     				
     				// interrogation de la table inscription
     				//si login est dans personnel redirect module etudiant
     				
     				$this->_helper->redirector("home","index","admin");
-    				 
+
     		
     					
     		 
                    // $this->_helper->redirector("index","demande","uma");
     			} else {
     				// failure: clear database row from session
-    				$auth->clearIdentity();
+                    $authstr->clearIdentity();
     				
 					$this->_helper->redirector("login","gestauth","admin",array('error'=>"err")); 
     				
@@ -118,7 +128,7 @@ public function loginAction()
         $this->_helper->layout()->disableLayout();
      	$this->_helper->viewRenderer->setNoRender(true);
     	
-    	$auth = Zend_Auth::getInstance();
+    	$auth = Zend_Auth_Admin::getInstance();
     	$auth->clearIdentity(); 
     	$this->_helper->redirector("login","gestauth","admin");
     }

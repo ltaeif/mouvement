@@ -2,7 +2,10 @@
 $this->headTitle('Retrait Management');
 ?>
 <?php
-$tableDemande = new Application_Model_Demande_DbTable();
+$tableEtudiant = new Application_Mytables_Etudiant();
+$tableDemande = new Application_Mytables_Demande();
+$tableEtablissement = new Application_Mytables_Etablissement();
+$tableParcours = new Application_Mytables_Parcours();
 ?>
 
 <script type="text/javascript">
@@ -47,18 +50,96 @@ function updateFilters(paramName, paramValue)
 <form class="form form-inline" method="get" action="<?php echo $this->url(array('module' => 'admin','controller' => 'retrait', 'action' => 'index'), null, true); ?>">
 <div>
 <input class="input-medium search-query" placeholder="Keywords..." type="text" name="_kw" value="<?php echo htmlspecialchars($this->param_kw); ?>" /> 
-<?php echo $this->formSelect('_sm', $this->param_sm, array(), array (
+<?php /*echo $this->formSelect('_sm', $this->param_sm, array(), array (
   'all' => 'All',
+  'etablissement_actuel' => 'Etablissement Actuel',
+  'code_inscription' => 'Code Inscription',
   'cause' => 'Cause',
   'attestation_affectation' => 'Attestation Affectation',
-)); ?>
+));*/ ?>
     
 <button class="btn" type="submit"><i class="icon-search"></i> Search</button>
 </div>
 </form>
 
 <form method="post" action="<?php echo $this->url(array('module' => 'admin','controller' => 'retrait', 'action' => 'delete'), null, true); ?>" onsubmit="return confirm('Delete selected rows?');">
-<table class="table table-bordered table-striped">
+
+    <table  class="table table-bordered table-striped">
+        <tfoot>
+        <tr>
+            <th><input type="checkbox" onchange="toggleCheckboxes(this);" /></th>
+            <th<?php if ('codedem' == $this->sortField) echo ' class="sort-field sort-', htmlspecialchars($this->param_so), '"'; ?>>
+                Codedem
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'codedem', '_so' => 'asc')); ?>'><i class='icon-arrow-up'></i></a>
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'codedem', '_so' => 'desc')); ?>'><i class='icon-arrow-down'></i></a>
+                <?php
+                echo $this->formSelect('codedem', $this->paramcodedem, array('onchange' => 'updateFilters(\'codedem\', this.options[this.selectedIndex].value)'), array('' => '- - Change - -') + $tableDemande->fetchPairs());
+                ?>
+            </th>
+            <th<?php if ('etat' == $this->sortField) echo ' class="sort-field sort-', htmlspecialchars($this->param_so), '"'; ?>>
+                Etat
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'etat', '_so' => 'asc')); ?>'><i class='icon-arrow-up'></i></a>
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'etat', '_so' => 'desc')); ?>'><i class='icon-arrow-down'></i></a>
+                <?php echo $this->formSelect('etat', $this->parametat, array('onchange' => 'updateFilters(\'etat\', this.options[this.selectedIndex].value)'), array (
+                    '' => '- - Change - -',
+                    'En Attente' => 'En Attente',
+                    'Refuser' => 'Refuser',
+                    'Accepter' => 'Accepter',
+                )); ?>
+            </th>
+
+            <th<?php if ('cin' == $this->sortField) echo ' class="sort-field sort-', htmlspecialchars($this->param_so), '"'; ?>>
+                Cin
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'cin', '_so' => 'asc')); ?>'><i class='icon-arrow-up'></i></a>
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'cin', '_so' => 'desc')); ?>'><i class='icon-arrow-down'></i></a>
+
+            </th>
+            <th<?php if ('nom' == $this->sortField) echo ' class="sort-field sort-', htmlspecialchars($this->param_so), '"'; ?>>
+                Nom
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'nom', '_so' => 'asc')); ?>'><i class='icon-arrow-up'></i></a>
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'nom', '_so' => 'desc')); ?>'><i class='icon-arrow-down'></i></a>
+
+            </th>
+            <th<?php if ('prenom' == $this->sortField) echo ' class="sort-field sort-', htmlspecialchars($this->param_so), '"'; ?>>
+                Prenom
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'prenom', '_so' => 'asc')); ?>'><i class='icon-arrow-up'></i></a>
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'prenom', '_so' => 'desc')); ?>'><i class='icon-arrow-down'></i></a>
+
+            </th>
+
+            <th<?php if ('etablissement_actuel' == $this->sortField) echo ' class="sort-field sort-', htmlspecialchars($this->param_so), '"'; ?>>
+                Etablissement Actuel
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'etablissement_actuel', '_so' => 'asc')); ?>'><i class='icon-arrow-up'></i></a>
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'etablissement_actuel', '_so' => 'desc')); ?>'><i class='icon-arrow-down'></i></a>
+                <?php
+               echo $this->formSelect('etablissement_actuel', $this->parametablissement_actuel, array('onchange' => 'updateFilters(\'etablissement_actuel\', this.options[this.selectedIndex].value)'), array('' => '- - Change - -') + $tableEtablissement->fetchPairs());
+                ?>
+            </th>
+            <th<?php if ('code_inscription' == $this->sortField) echo ' class="sort-field sort-', htmlspecialchars($this->param_so), '"'; ?>>
+                Code Inscription
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'code_inscription', '_so' => 'asc')); ?>'><i class='icon-arrow-up'></i></a>
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'code_inscription', '_so' => 'desc')); ?>'><i class='icon-arrow-down'></i></a>
+
+            </th>
+            <th<?php if ('cause' == $this->sortField) echo ' class="sort-field sort-', htmlspecialchars($this->param_so), '"'; ?>>
+                Cause
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'cause', '_so' => 'asc')); ?>'><i class='icon-arrow-up'></i></a>
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'cause', '_so' => 'desc')); ?>'><i class='icon-arrow-down'></i></a>
+
+            </th>
+            <th<?php if ('attestation_affectation' == $this->sortField) echo ' class="sort-field sort-', htmlspecialchars($this->param_so), '"'; ?>>
+                Attestation Affectation
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'attestation_affectation', '_so' => 'asc')); ?>'><i class='icon-arrow-up'></i></a>
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'attestation_affectation', '_so' => 'desc')); ?>'><i class='icon-arrow-down'></i></a>
+
+            </th>
+
+        </tr>
+        </tfoot>
+
+    </table>
+
+<table class="table table-bordered table-striped" id="datatable">
     <thead>
         <tr>
             <th><input type="checkbox" onchange="toggleCheckboxes(this);" /></th>
@@ -67,8 +148,29 @@ function updateFilters(paramName, paramValue)
                 <a href='<?php echo $this->url($_GET + array('_sf' => 'codedem', '_so' => 'asc')); ?>'><i class='icon-arrow-up'></i></a>
                 <a href='<?php echo $this->url($_GET + array('_sf' => 'codedem', '_so' => 'desc')); ?>'><i class='icon-arrow-down'></i></a>
                 <?php
-    echo $this->formSelect('codedem', $this->paramcodedem, array('onchange' => 'updateFilters(\'codedem\', this.options[this.selectedIndex].value)'), array('' => '- - Change - -') + $tableDemande->fetchPairs());
+    //echo $this->formSelect('codedem', $this->paramcodedem, array('onchange' => 'updateFilters(\'codedem\', this.options[this.selectedIndex].value)'), array('' => '- - Change - -') + $tableDemande->fetchPairs());
 ?>
+
+            </th>
+            <th<?php if ('etat' == $this->sortField) echo ' class="sort-field sort-', htmlspecialchars($this->param_so), '"'; ?>>
+                Etat
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'etat', '_so' => 'asc')); ?>'><i class='icon-arrow-up'></i></a>
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'etat', '_so' => 'desc')); ?>'><i class='icon-arrow-down'></i></a>
+
+            </th>
+            <th<?php if ('etablissement_actuel' == $this->sortField) echo ' class="sort-field sort-', htmlspecialchars($this->param_so), '"'; ?>>
+                Etablissement Actuel 
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'etablissement_actuel', '_so' => 'asc')); ?>'><i class='icon-arrow-up'></i></a>
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'etablissement_actuel', '_so' => 'desc')); ?>'><i class='icon-arrow-down'></i></a>
+                <?php
+    //echo $this->formSelect('etablissement_actuel', $this->parametablissement_actuel, array('onchange' => 'updateFilters(\'etablissement_actuel\', this.options[this.selectedIndex].value)'), array('' => '- - Change - -') + $tableEtablissement->fetchPairs());
+?>
+            </th>
+            <th<?php if ('code_inscription' == $this->sortField) echo ' class="sort-field sort-', htmlspecialchars($this->param_so), '"'; ?>>
+                Code Inscription 
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'code_inscription', '_so' => 'asc')); ?>'><i class='icon-arrow-up'></i></a>
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'code_inscription', '_so' => 'desc')); ?>'><i class='icon-arrow-down'></i></a>
+                
             </th>
             <th<?php if ('cause' == $this->sortField) echo ' class="sort-field sort-', htmlspecialchars($this->param_so), '"'; ?>>
                 Cause 
@@ -85,32 +187,7 @@ function updateFilters(paramName, paramValue)
             <th>Actions</th>
         </tr>
     </thead>
-    <tfoot>
-        <tr>
-            <th><input type="checkbox" onchange="toggleCheckboxes(this);" /></th>
-            <th<?php if ('codedem' == $this->sortField) echo ' class="sort-field sort-', htmlspecialchars($this->param_so), '"'; ?>>
-                Codedem 
-                <a href='<?php echo $this->url($_GET + array('_sf' => 'codedem', '_so' => 'asc')); ?>'><i class='icon-arrow-up'></i></a>
-                <a href='<?php echo $this->url($_GET + array('_sf' => 'codedem', '_so' => 'desc')); ?>'><i class='icon-arrow-down'></i></a>
-                <?php
-    echo $this->formSelect('codedem', $this->paramcodedem, array('onchange' => 'updateFilters(\'codedem\', this.options[this.selectedIndex].value)'), array('' => '- - Change - -') + $tableDemande->fetchPairs());
-?>
-            </th>
-            <th<?php if ('cause' == $this->sortField) echo ' class="sort-field sort-', htmlspecialchars($this->param_so), '"'; ?>>
-                Cause 
-                <a href='<?php echo $this->url($_GET + array('_sf' => 'cause', '_so' => 'asc')); ?>'><i class='icon-arrow-up'></i></a>
-                <a href='<?php echo $this->url($_GET + array('_sf' => 'cause', '_so' => 'desc')); ?>'><i class='icon-arrow-down'></i></a>
-                
-            </th>
-            <th<?php if ('attestation_affectation' == $this->sortField) echo ' class="sort-field sort-', htmlspecialchars($this->param_so), '"'; ?>>
-                Attestation Affectation 
-                <a href='<?php echo $this->url($_GET + array('_sf' => 'attestation_affectation', '_so' => 'asc')); ?>'><i class='icon-arrow-up'></i></a>
-                <a href='<?php echo $this->url($_GET + array('_sf' => 'attestation_affectation', '_so' => 'desc')); ?>'><i class='icon-arrow-down'></i></a>
-                
-            </th>
-            <th>Actions</th>
-        </tr>
-    </tfoot>
+
     <tbody>
 <?php foreach ($this->paginator as $row): ?>
         <tr>
@@ -121,6 +198,27 @@ function updateFilters(paramName, paramValue)
     } else {
         echo htmlspecialchars($linkedRow->codedem), ' (unlinked)';
     } ?></td>
+            <td><?php  echo htmlspecialchars($linkedRow->getEtat()); ?></td>
+            <td><?php  echo htmlspecialchars($linkedRow->CIN); ?></td>
+
+            <td><?php     $linkedRowEtudiant = $tableEtudiant->find($linkedRow->CIN)->current();
+                if ($linkedRowEtudiant) {
+                    echo htmlspecialchars($linkedRowEtudiant->getNom());
+                }?></td>
+
+
+            <td><?php      if ($linkedRowEtudiant) {
+                    echo htmlspecialchars($linkedRowEtudiant->getPrenom());
+                } ?></td>
+
+
+
+            <td>
+
+            <td><?php
+                echo $tableEtablissement->findbyidJoin($row->etablissement_actuel);
+                ?></td>
+            <td><?php echo htmlspecialchars($row->code_inscription); ?></td>
             <td><?php echo htmlspecialchars(mb_substr($row->cause, 0, 100)), '...'; ?></td>
             <td><?php echo htmlspecialchars($row->attestation_affectation); ?></td>
             <td align="center"><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'retrait', 'action' => 'update', 'id' => $row->codedem), null, true); ?>">Edit</a> 
@@ -129,7 +227,13 @@ function updateFilters(paramName, paramValue)
 <?php endforeach; ?>
     </tbody>
 </table><br />
-<button class="btn btn-danger" type="submit"><i class=" icon-trash icon-white"></i> Delete Selected Rows</button>
+
+
+    <!--<button class="btn btn-danger" type="submit"><i class=" icon-trash icon-white"></i> Delete Selected Rows</button>-->
+
+    <a class="btn btn-success" download="somedata.xls"  href="#" onclick=" return ExcellentExport.excel(this, 'datatable', 'Sheet Name Here');">Export to Excel</a>
+
+
 </form>
 
 <?php echo $this->paginationControl($this->paginator,

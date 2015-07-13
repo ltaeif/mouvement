@@ -42,34 +42,26 @@ class Application_Myforms_EditDemande extends Zend_Form
         $user->setValue($auth->getStorage()->read()->cin);
         $this->addElement($user);*/
         
-        $user=$this->createElement('text', 'CIN')
-        ->setAttrib("class", "hidden")
-        ->setRequired(true);
-        $user->setValue($auth->getStorage()->read()->cin);
-        $this->addElement($user);
+
 		
-       /* $this->addElement(
+      $this->addElement(
             $this->createElement('radio', 'etat')
-               // ->setLabel('Etat')
+                ->setLabel('Etat')
         		
-                ->setMultiOptions(array('Refuser' => 'Refuser','Accepter' => 'Accepter'))
+                ->setMultiOptions(array('En Attente' => 'En Attente','Refuser' => 'Refuser','Accepter' => 'Accepter'))
         		
                 ->setSeparator(" ")
-        		->setAttrib("class", "hidden")
-                ->addValidator(new Zend_Validate_InArray(array('haystack' => array('Refuser' => 'Refuser','Accepter' => 'Accepter'))), true)
-        );*/
+        		->setAttrib("class", "")
+                ->addValidator(new Zend_Validate_InArray(array('haystack' => array('En Attente' => 'En Attente','Refuser' => 'Refuser','Accepter' => 'Accepter'))), true)
+        );
 		
-		$etat=$this->createElement('text', 'etat')
-        ->setAttrib("class", "hidden")
-        ->setRequired(true);
-        $etat->setValue('En Attente');
-        $this->addElement($etat);
+
 
         $this->addElement(
             $this->createElement('text', 'descriptif')
-                //->setLabel('Descriptif')
+                ->setLabel('Descriptif')
                 ->setAttrib("maxlength", 255)
-                ->setAttrib("class", "input-xlarge hidden")
+                ->setAttrib("class", "input-xlarge ")
         		
                 ->addValidator(new Zend_Validate_StringLength(array("max" => 255)), true)
                 ->addFilter(new Zend_Filter_StringTrim())

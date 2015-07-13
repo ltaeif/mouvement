@@ -122,7 +122,9 @@ abstract class Application_Model_Demande_DbTable_Abstract extends Zend_Db_Table_
     public function getDbSelectByParams($params = array(), $sortField = '', $sortOrder = '')
     {
         $select = $this->select(true);
-        
+
+
+
         if ($sortField != '' && $sortOrder != '') {
             if ('desc' === strtolower($sortOrder)) {
                 $sortOrder = 'DESC';

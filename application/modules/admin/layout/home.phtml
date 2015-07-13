@@ -12,19 +12,26 @@
     <title>UMA</title>
 
     <!-- Bootstrap Core CSS -->
- 
+
     <?php $this->headLink()->appendStylesheet($this->baseUrl().'/bower_components/bootstrap/dist/css/bootstrap.min.css'); ?>
-    <?php $this->headLink()->appendStylesheet($this->baseUrl().'/bower_components/metisMenu/dist/metisMenu.min.css'); ?>  
-    <?php 
+    <?php $this->headLink()->appendStylesheet($this->baseUrl().'/bower_components/metisMenu/dist/metisMenu.min.css'); ?>
+    <?php
     $this->headScript()->appendFile($this->baseUrl().'/bower_components/jquery/dist/jquery.min.js');
-    $this->headScript()->appendFile($this->baseUrl().'/bower_components/bootstrap/dist/js/bootstrap.min.js'); ?>
+    $this->headScript()->appendFile($this->baseUrl().'/bower_components/bootstrap/dist/js/bootstrap.min.js');
+
+
+    $this->headScript()->appendFile($this->baseUrl().'/js/quickselect/chosen.jquery.js');
+    $this->headLink()->appendStylesheet($this->baseUrl().'/js/quickselect/chosen.css');
+
+
+    ?>
     <!-- MetisMenu CSS -->
- 
-     
+
+
     <?php $this->headScript()->appendFile($this->baseUrl().'/bower_components/metisMenu/dist/metisMenu.min.js'); ?>
-    
-    
-    
+
+
+
    <?php $this->headLink()->appendStylesheet($this->baseUrl().'/dist/css/sb-admin-2.css') ?>
      <?php $this->headScript()->appendFile($this->baseUrl().'/dist/js/sb-admin-2.js'); ?>
     <!-- Morris Charts CSS -->
@@ -33,34 +40,35 @@
 			.hidden {
 			    display: none;
 			}
+            select {width: 180px;}
     </style>
-	
-	
- 
-    
+
+
+
+
 <?php //$this->headLink()->appendStylesheet($this->baseUrl().'/bower_components/morrisjs/morris.css') ?>
-<?php //$this->headScript()->appendFile($this->baseUrl().'/bower_components/morrisjs/morris.js'); ?> 
+<?php //$this->headScript()->appendFile($this->baseUrl().'/bower_components/morrisjs/morris.js'); ?>
     <!-- Custom Fonts -->
-    
+
 <?php $this->headLink()->appendStylesheet($this->baseUrl().'/bower_components/font-awesome/css/font-awesome.min.css') ?>
 
 
-<?php 
-     
+<?php
+
      $this->headScript()->appendFile($this->baseUrl().'/bower_components/metisMenu/dist/metisMenu.min.js');
      $this->headScript()->appendFile($this->baseUrl().'/bower_components/bootstrap/dist/js/bootstrap.min.js');
-     
+
      $this->headScript()->appendFile($this->baseUrl().'/bower_components/raphael/raphael-min.js');
      $this->headScript()->appendFile($this->baseUrl().'/bower_components/morrisjs/morris.min.js');
     // $this->headScript()->appendFile($this->baseUrl().'/js/morris-data.js');
- 	
 
-	
+
+
 	 $this->headScript()->appendFile($this->baseUrl().'/bower_components/blueimp-file-upload/js/vendor/jquery.ui.widget.js');
-	
+
 	 //$this->headScript()->appendFile($this->baseUrl().'/bower_components/blueimp-file-upload/jquery-ui/jquery-ui.min.js');
 	 //$this->headScript()->appendFile($this->baseUrl().'/bower_components/blueimp-file-upload/jquery-ui/jquery.min.js');
-	 
+
 	 $this->headScript()->appendFile($this->baseUrl().'/bower_components/blueimp-file-upload/js/jquery.iframe-transport.js');
 	 $this->headScript()->appendFile($this->baseUrl().'/bower_components/blueimp-file-upload/js/vendor/jquery.ui.widget.js');
 	 $this->headScript()->appendFile($this->baseUrl().'/bower_components/blueimp-file-upload/js/jquery.fileupload.js');
@@ -71,52 +79,52 @@
 	 $this->headScript()->appendFile($this->baseUrl().'/bower_components/blueimp-file-upload/js/jquery.fileupload-validate.js');
 	 $this->headScript()->appendFile($this->baseUrl().'/bower_components/blueimp-file-upload/js/jquery.fileupload-ui.js');
 	 //$this->headScript()->appendFile($this->baseUrl().'/bower_components/blueimp-file-upload/js/main.js');
-	 
-	 
+
+
 	//$this->headScript()->appendFile($this->baseUrl().'/bower_components/blueimp-file-upload/blueimp-js/load-image.all.min.js');
 	//$this->headScript()->appendFile($this->baseUrl().'/bower_components/blueimp-file-upload/blueimp-js/canvas-to-blob.min.js');
 	$this->headScript()->appendFile($this->baseUrl().'/bower_components/blueimp-file-upload/blueimp-js/jquery.blueimp-gallery.min.js');
 	//$this->headScript()->appendFile($this->baseUrl().'/bower_components/blueimp-file-upload/blueimp-js/tmpl.min.js');
-	 
-	 $this->headLink()->appendStylesheet($this->baseUrl().'/bower_components/blueimp-file-upload/css/jquery.fileupload.css'); 
+
+	 $this->headLink()->appendStylesheet($this->baseUrl().'/bower_components/blueimp-file-upload/css/jquery.fileupload.css');
 	 $this->headLink()->appendStylesheet($this->baseUrl().'/bower_components/blueimp-file-upload/css/jquery.fileupload-ui.css');
 	 $this->headLink()->appendStylesheet($this->baseUrl().'/bower_components/blueimp-file-upload/css/style.css');
-	 
-	 //$this->headLink()->appendStylesheet($this->baseUrl().'/bower_components/blueimp-file-upload/css/jquery.fileupload-noscript.css'); 
-	 //$this->headLink()->appendStylesheet($this->baseUrl().'/bower_components/blueimp-file-upload/css/jquery.fileupload-ui-noscript.css'); 
-	 //$this->headLink()->appendStylesheet($this->baseUrl().'/bower_components/blueimp-file-upload/css/demo.css'); 
-	 $this->headLink()->appendStylesheet($this->baseUrl().'/bower_components/blueimp-file-upload/css/blueimp-gallery.min.css'); 
-	 
-	 
+
+	 //$this->headLink()->appendStylesheet($this->baseUrl().'/bower_components/blueimp-file-upload/css/jquery.fileupload-noscript.css');
+	 //$this->headLink()->appendStylesheet($this->baseUrl().'/bower_components/blueimp-file-upload/css/jquery.fileupload-ui-noscript.css');
+	 //$this->headLink()->appendStylesheet($this->baseUrl().'/bower_components/blueimp-file-upload/css/demo.css');
+	 $this->headLink()->appendStylesheet($this->baseUrl().'/bower_components/blueimp-file-upload/css/blueimp-gallery.min.css');
+
+
 	 $this->headScript()->appendFile($this->baseUrl().'/bower_components/excellentexport/excellentexport.js');
-	
+
 	 ?>
-	 
+
 	<!-- blueimp Gallery styles -->
 		  <script src="//blueimp.github.io/JavaScript-Templates/js/tmpl.min.js"></script>
 		  <!-- The Load Image plugin is included for the preview images and image resizing functionality -->
 		  <script src="//blueimp.github.io/JavaScript-Load-Image/js/load-image.all.min.js"></script>
 		  <!-- The Canvas to Blob plugin is included for image resizing functionality -->
 		  <script src="//blueimp.github.io/JavaScript-Canvas-to-Blob/js/canvas-to-blob.min.js"></script>
-		
-	
-		<!-- 
+
+
+		<!--
 			<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-		
+
 			<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-		
+
 			<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-		
+
 		Bootstrap JS is not required, but included for the responsive demo navigation -->
-		
-		
-	 <!-- jQuery UI styles 
-	 		
+
+
+	 <!-- jQuery UI styles
+
 	 <link rel="stylesheet" href="//blueimp.github.io/Gallery/css/blueimp-gallery.min.css">
 
-	 
-	 
-	  $this->headLink()->appendStylesheet('http://blueimp.github.io/Gallery/css/blueimp-gallery.min.css'); 
+
+
+	  $this->headLink()->appendStylesheet('http://blueimp.github.io/Gallery/css/blueimp-gallery.min.css');
 	 	<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/dark-hive/jquery-ui.css" id="theme">
 	 -->
 
@@ -148,21 +156,28 @@
 	<!-- The File Upload validation plugin -->
 	<!-- The File Upload user interface plugin -->
 	<!-- The main application script -->
-	
 
-	 
-   
+
+
+
     <?php echo $this->headLink();?>
     <?php echo $this->headScript();?>
-    
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <script>
 
-</head>   
+        jQuery(document).ready(function () {
+
+            $('select').chosen();
+
+        });
+    </script>
+</head>
 
 
 <body>
@@ -234,12 +249,12 @@
                     <!-- /.dropdown-messages -->
                 </li>
                 <!-- /.dropdown -->
-               
+
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
                         <i class="fa fa-user fa-fw">
-                        
-                        </i> 
+
+                        </i>
 							<?php echo $this->etudiantstore['login'];?>
 						<i class="fa fa-caret-down"></i>
                     </a>
@@ -259,9 +274,9 @@
             </ul>
             <!-- /.navbar-top-links -->
 
-                      
-                
-                
+
+
+
             <div class="navbar-default sidebar" role="navigation">
         <div class="sidebar-nav navbar-collapse">
             <ul class="nav" id="side-menu">
@@ -283,27 +298,63 @@
                     <a href="#"><i class="fa fa-edit fa-fw"></i> Liste des demandes<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level collapse">
                         <li>
-                            <a href="<?=$this->url(array("action"=>"index","controller"=>"Demande",'type_demande'=>'Reorientation'))?>">demandes de Reorientation</a>
+                            <a href="<?=$this->url(array("action"=>"index","controller"=>"Demande"))?>">Vue Global des demandes</a>
+                        </li>
+
+                        <li>
+                            <a href="<?=$this->url(array("action"=>"index","controller"=>"Reorientation"))?>">Demandes de Reorientation</a>
                         </li>
                         <li>
-                            <a href="<?=$this->url(array("action"=>"index","controller"=>"Demande",'type_demande'=>'Mutation'))?>">demandes de Mutation</a>
+                            <a href="<?=$this->url(array("action"=>"index","controller"=>"Mutation"))?>">Demandes de Mutation</a>
                         </li>
                         <li>
-                            <a href="<?=$this->url(array("action"=>"index","controller"=>"Demande",'type_demande'=>'Retrait'))?>">demandes de Retrait d'inscription</a>
+                            <a href="<?=$this->url(array("action"=>"index","controller"=>"Retrait"))?>">Demandes de Retrait d'inscription</a>
                         </li>
                         <li>
-                            <a href="<?=$this->url(array("action"=>"index","controller"=>"Demande",'type_demande'=>'Report'))?>">demandes de Report d'inscription</a>
+                            <a href="<?=$this->url(array("action"=>"index","controller"=>"Report"))?>">Demandes de Report d'inscription</a>
                         </li>
                         <li>
-                            <a href="<?=$this->url(array("action"=>"index","controller"=>"Demande",'type_demande'=>'Chparcours'))?>">demandes de changement de parcours</a>
+                            <a href="<?=$this->url(array("action"=>"index","controller"=>"Chparcours"))?>">Demandes de changement de parcours</a>
                         </li>
                     </ul>
                     <!-- /.nav-second-level -->
                 </li>
-				
+
+
+                <li>
+
+                    <a href="#"><i class="fa fa-edit fa-fw"></i> Gestion des établisseements<span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level collapse">
+
+                        <li><a href="<?=$this->url(array("module"=>"admin","action"=>"index","controller"=>"etablissement"),null,true)?>"><i class="fa  fa-fw"></i> Etablissements Manouba</a>
+                        </li>
+
+
+                        <li>
+                            <a href="<?=$this->url(array("module"=>"admin","action"=>"index","controller"=>"directeur"),null,true)?>"><i class="fa  fa-fw"></i> Directeurs </a>
+                        </li>
+
+                        <li>
+                            <a href="<?=$this->url(array("module"=>"admin","action"=>"index","controller"=>"personnel"),null,true)?>"><i class="fa  fa-fw"></i> Personnels </a>
+                        </li>
+
+
+                        <li>
+                            <a href="<?=$this->url(array("module"=>"admin","action"=>"indexautres","controller"=>"etablissement"),null,true)?>"><i class="fa  fa-fw"></i> Autres Etablissements</a>
+                        </li>
+
+
+
+
+                    </ul>
+
+
+
+                  </li>
+
                  <li>
                      <a href="#"><i class="fa fa-edit fa-fw"></i> Gestion du parcours pédagogique<span class="fa arrow"></span></a>
-                     
+
                      <ul class="nav nav-second-level collapse">
                         <li>
                             <a href="<?=$this->url(array("module"=>"admin","action"=>"index","controller"=>"mention"),null,true)?>"><i class="fa fa-user fa-fw"></i> Gestion du mention</a>
@@ -317,41 +368,49 @@
                         <li>
                            <a href="<?=$this->url(array("module"=>"admin","action"=>"index","controller"=>"parcours"),null,true)?>"><i class="fa fa-user fa-fw"></i> Gestion du parcours</a>
                         </li>
-                        
+
                     </ul>
-                     
-                    
+
+
                 </li>
-                
+
 				<?php if($this->etudiantstore['module']=='admin') {?>
                 <li>
                     <a href="<?=$this->url(array("module"=>"admin","action"=>"index","controller"=>"authentif"),null,true)?>"><i class="fa fa-user fa-fw"></i> Liste des utlisateurs</a>
                 </li>
 				<?php }?>
-               
-              
+
+
             </ul>
         </div>
         <!-- /.sidebar-collapse -->
     </div>
-            
-               
-            
-            
+
+
+
+
             <!-- /.navbar-static-side -->
         </nav>
 
         <div id="page-wrapper">
-            
-				<?php echo $this->layout()->content ?>
-				
+            <?php // echo $this->navigation()->breadcrumbs(); ?>
+
+            <br></br>
+            <div class="form-actions">
+
+                <INPUT  class="btn" type="button" value="Précédent" onclick="history.back()">
+            </div>
+
+
+            <?php echo $this->layout()->content ?>
+
         </div>
         <!-- /#page-wrapper -->
 
     </div>
     <!-- /#wrapper -->
 
- 
+
 
 </body>
 
@@ -363,6 +422,5 @@
 
 
 
- 
- 
- 
+
+

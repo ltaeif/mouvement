@@ -3,7 +3,7 @@
 /**
  * Rowset definition class for table ville.
  *
- * @package Default
+ * @package Admin
  * @author Zodeken
  * @version $Id$
  *

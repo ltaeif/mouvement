@@ -3,7 +3,7 @@
 /**
  * Definition class for table retrait.
  *
- * @package Default
+ * @package Admin
  * @author Zodeken
  * @version $Id$
  */

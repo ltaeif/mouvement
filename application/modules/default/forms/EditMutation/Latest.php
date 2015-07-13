@@ -28,20 +28,11 @@ class Application_Form_EditMutation_Latest extends Zend_Form
         );
 
         $this->addElement(
-            $this->createElement('text', 'section_actuelle')
-                ->setLabel('Section Actuelle')
-                ->setAttrib("maxlength", 255)
-                ->setAttrib("class", "input-xlarge")
-                ->addValidator(new Zend_Validate_StringLength(array("max" => 255)), true)
-                ->addFilter(new Zend_Filter_StringTrim())
-        );
-
-        $this->addElement(
             $this->createElement('radio', 'niveau_actuelle')
                 ->setLabel('Niveau Actuelle')
-                ->setMultiOptions(array('1ere année' => '1ere année','2eme année' => '2eme année','3eme année' => '3eme année'))
+                ->setMultiOptions(array('1ere annee' => '1ere annee','2eme annee' => '2eme annee','3eme annee' => '3eme annee'))
                 ->setSeparator(" ")
-                ->addValidator(new Zend_Validate_InArray(array('haystack' => array('1ere année' => '1ere année','2eme année' => '2eme année','3eme année' => '3eme année'))), true)
+                ->addValidator(new Zend_Validate_InArray(array('haystack' => array('1ere annee' => '1ere annee','2eme annee' => '2eme annee','3eme annee' => '3eme annee'))), true)
         );
 
         $this->addElement(
@@ -54,15 +45,6 @@ class Application_Form_EditMutation_Latest extends Zend_Form
         );
 
         $this->addElement(
-            $this->createElement('text', 'description_sanction')
-                ->setLabel('Description Sanction')
-                ->setAttrib("maxlength", 255)
-                ->setAttrib("class", "input-xlarge")
-                ->addValidator(new Zend_Validate_StringLength(array("max" => 255)), true)
-                ->addFilter(new Zend_Filter_StringTrim())
-        );
-
-        $this->addElement(
             $this->createElement('text', 'autres')
                 ->setLabel('Autres')
                 ->setAttrib("maxlength", 255)
@@ -70,14 +52,6 @@ class Application_Form_EditMutation_Latest extends Zend_Form
                 ->setRequired(true)
                 ->addValidator(new Zend_Validate_StringLength(array("max" => 255)), true)
                 ->addFilter(new Zend_Filter_StringTrim())
-        );
-
-        $tableParcours = new Application_Model_Parcours_DbTable();
-        $this->addElement(
-            $this->createElement('select', 'section_demande')
-                ->setLabel('Section Demande')
-                ->setMultiOptions(array("" => "- - Select - -") + $tableParcours->fetchPairs())
-                ->setRequired(true)
         );
 
         $tableEtablissement = new Application_Model_Etablissement_DbTable();
@@ -88,13 +62,21 @@ class Application_Form_EditMutation_Latest extends Zend_Form
                 ->setRequired(true)
         );
 
+        $tableParcours = new Application_Model_Parcours_DbTable();
+        $this->addElement(
+            $this->createElement('select', 'section_demande')
+                ->setLabel('Section Demande')
+                ->setMultiOptions(array("" => "- - Select - -") + $tableParcours->fetchPairs())
+                ->setRequired(true)
+        );
+
         $this->addElement(
             $this->createElement('radio', 'cause')
                 ->setLabel('Cause')
-                ->setMultiOptions(array('Santé' => 'Santé','Social' => 'Social','Autres' => 'Autres'))
+                ->setMultiOptions(array('Sante' => 'Sante','Social' => 'Social','Autres' => 'Autres'))
                 ->setSeparator(" ")
                 ->setRequired(true)
-                ->addValidator(new Zend_Validate_InArray(array('haystack' => array('Santé' => 'Santé','Social' => 'Social','Autres' => 'Autres'))), true)
+                ->addValidator(new Zend_Validate_InArray(array('haystack' => array('Sante' => 'Sante','Social' => 'Social','Autres' => 'Autres'))), true)
         );
 
         $this->addElement(
@@ -104,6 +86,15 @@ class Application_Form_EditMutation_Latest extends Zend_Form
                 ->setSeparator(" ")
                 ->setRequired(true)
                 ->addValidator(new Zend_Validate_InArray(array('haystack' => array('Non' => 'Non','Oui' => 'Oui'))), true)
+        );
+
+        $this->addElement(
+            $this->createElement('text', 'description_sanction')
+                ->setLabel('Description Sanction')
+                ->setAttrib("maxlength", 255)
+                ->setAttrib("class", "input-xlarge")
+                ->addValidator(new Zend_Validate_StringLength(array("max" => 255)), true)
+                ->addFilter(new Zend_Filter_StringTrim())
         );
 
         $this->addElement(

@@ -1,5 +1,12 @@
 <?php
-$this->headTitle('Etablissement Management');
+$this->headTitle('Gestion des établissements');
+?>
+<?php
+$tableUniversite = new Application_Mytables_Universite();
+$tableDirecteur = new Application_Mytables_Directeur();
+$tableEtablissement = new Application_Mytables_Etablissement();
+$tablefileEtablissement = new Application_Model_FilesEtablissement_DbTable();
+
 ?>
 
 <script type="text/javascript">
@@ -34,21 +41,24 @@ function updateFilters(paramName, paramValue)
 </script>
 
 <div class="page-header">
-   <h1>Etablissement Management</h1>
+   <h1>Gestion des établissements Manouba</h1>
 </div>
 
 <div class="pull-right">
 <a class="btn btn-info" href="<?php echo $this->url(array('module' => 'admin','controller' => 'etablissement', 'action' => 'index'), null, true); ?>"><i class=" icon-refresh icon-white"></i> Reset Filters</a>
-<a class="btn btn-success" href="<?php echo $this->url(array('module' => 'admin','controller' => 'etablissement', 'action' => 'create'), null, true); ?>"><i class="icon-plus icon-white"></i> Add New</a></div><br />
+<!--<a class="btn btn-success" href="<?php echo $this->url(array('module' => 'admin','controller' => 'etablissement', 'action' => 'create'), null, true); ?>"><i class="icon-plus icon-white"></i> Add New</a>-->
+</div><br />
 
 <form class="form form-inline" method="get" action="<?php echo $this->url(array('module' => 'admin','controller' => 'etablissement', 'action' => 'index'), null, true); ?>">
 <div>
 <input class="input-medium search-query" placeholder="Keywords..." type="text" name="_kw" value="<?php echo htmlspecialchars($this->param_kw); ?>" /> 
 <?php echo $this->formSelect('_sm', $this->param_sm, array(), array (
   'all' => 'All',
-  'codeetab' => 'Codeetab',
-  'denomination' => 'Denomination',
+  'idetablissement' => 'Idetablissement',
+  'site_web' => 'Site Web',
+  'email' => 'Email',
   'adresse' => 'Adresse',
+  'image' => 'Image',
 )); ?>
     
 <button class="btn" type="submit"><i class="icon-search"></i> Search</button>
@@ -60,16 +70,46 @@ function updateFilters(paramName, paramValue)
     <thead>
         <tr>
             <th><input type="checkbox" onchange="toggleCheckboxes(this);" /></th>
-            <th<?php if ('codeetab' == $this->sortField) echo ' class="sort-field sort-', htmlspecialchars($this->param_so), '"'; ?>>
-                Codeetab 
-                <a href='<?php echo $this->url($_GET + array('_sf' => 'codeetab', '_so' => 'asc')); ?>'><i class='icon-arrow-up'></i></a>
-                <a href='<?php echo $this->url($_GET + array('_sf' => 'codeetab', '_so' => 'desc')); ?>'><i class='icon-arrow-down'></i></a>
+            <th<?php if ('image' == $this->sortField) echo ' class="sort-field sort-', htmlspecialchars($this->param_so), '"'; ?>>
+                Image
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'image', '_so' => 'asc')); ?>'><i class='icon-arrow-up'></i></a>
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'image', '_so' => 'desc')); ?>'><i class='icon-arrow-down'></i></a>
+
+            </th>
+            <th<?php if ('idetablissement' == $this->sortField) echo ' class="sort-field sort-', htmlspecialchars($this->param_so), '"'; ?>>
+                Idetablissement 
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'idetablissement', '_so' => 'asc')); ?>'><i class='icon-arrow-up'></i></a>
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'idetablissement', '_so' => 'desc')); ?>'><i class='icon-arrow-down'></i></a>
+                <?php
+                echo $this->formSelect('idetablissement', $this->paramidetablissement, array('onchange' => 'updateFilters(\'idetablissement\', this.options[this.selectedIndex].value)'), array('' => '- - Change - -') + $tableEtablissement->fetchPairsExtended());
+                ?>
+            </th>
+            <th<?php if ('universite' == $this->sortField) echo ' class="sort-field sort-', htmlspecialchars($this->param_so), '"'; ?>>
+                Universite 
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'universite', '_so' => 'asc')); ?>'><i class='icon-arrow-up'></i></a>
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'universite', '_so' => 'desc')); ?>'><i class='icon-arrow-down'></i></a>
+                <?php
+    echo $this->formSelect('universite', $this->paramuniversite, array('onchange' => 'updateFilters(\'universite\', this.options[this.selectedIndex].value)'), array('' => '- - Change - -') + $tableUniversite->fetchPairsExtended(null,array('universite'=>2)));
+?>
+            </th>
+            <th<?php if ('directeur' == $this->sortField) echo ' class="sort-field sort-', htmlspecialchars($this->param_so), '"'; ?>>
+                Directeur 
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'directeur', '_so' => 'asc')); ?>'><i class='icon-arrow-up'></i></a>
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'directeur', '_so' => 'desc')); ?>'><i class='icon-arrow-down'></i></a>
+                <?php
+    echo $this->formSelect('directeur', $this->paramdirecteur, array('onchange' => 'updateFilters(\'directeur\', this.options[this.selectedIndex].value)'), array('' => '- - Change - -') + $tableDirecteur->fetchPairsExtended());
+?>
+            </th>
+            <th<?php if ('site_web' == $this->sortField) echo ' class="sort-field sort-', htmlspecialchars($this->param_so), '"'; ?>>
+                Site Web 
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'site_web', '_so' => 'asc')); ?>'><i class='icon-arrow-up'></i></a>
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'site_web', '_so' => 'desc')); ?>'><i class='icon-arrow-down'></i></a>
                 
             </th>
-            <th<?php if ('denomination' == $this->sortField) echo ' class="sort-field sort-', htmlspecialchars($this->param_so), '"'; ?>>
-                Denomination 
-                <a href='<?php echo $this->url($_GET + array('_sf' => 'denomination', '_so' => 'asc')); ?>'><i class='icon-arrow-up'></i></a>
-                <a href='<?php echo $this->url($_GET + array('_sf' => 'denomination', '_so' => 'desc')); ?>'><i class='icon-arrow-down'></i></a>
+            <th<?php if ('email' == $this->sortField) echo ' class="sort-field sort-', htmlspecialchars($this->param_so), '"'; ?>>
+                Email 
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'email', '_so' => 'asc')); ?>'><i class='icon-arrow-up'></i></a>
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'email', '_so' => 'desc')); ?>'><i class='icon-arrow-down'></i></a>
                 
             </th>
             <th<?php if ('adresse' == $this->sortField) echo ' class="sort-field sort-', htmlspecialchars($this->param_so), '"'; ?>>
@@ -84,22 +124,51 @@ function updateFilters(paramName, paramValue)
                 <a href='<?php echo $this->url($_GET + array('_sf' => 'numtel', '_so' => 'desc')); ?>'><i class='icon-arrow-down'></i></a>
                 
             </th>
+
             <th>Actions</th>
         </tr>
     </thead>
     <tfoot>
         <tr>
             <th><input type="checkbox" onchange="toggleCheckboxes(this);" /></th>
-            <th<?php if ('codeetab' == $this->sortField) echo ' class="sort-field sort-', htmlspecialchars($this->param_so), '"'; ?>>
-                Codeetab 
-                <a href='<?php echo $this->url($_GET + array('_sf' => 'codeetab', '_so' => 'asc')); ?>'><i class='icon-arrow-up'></i></a>
-                <a href='<?php echo $this->url($_GET + array('_sf' => 'codeetab', '_so' => 'desc')); ?>'><i class='icon-arrow-down'></i></a>
+            <th<?php if ('image' == $this->sortField) echo ' class="sort-field sort-', htmlspecialchars($this->param_so), '"'; ?>>
+                Image
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'image', '_so' => 'asc')); ?>'><i class='icon-arrow-up'></i></a>
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'image', '_so' => 'desc')); ?>'><i class='icon-arrow-down'></i></a>
+
+            </th>
+            <th<?php if ('idetablissement' == $this->sortField) echo ' class="sort-field sort-', htmlspecialchars($this->param_so), '"'; ?>>
+                Idetablissement 
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'idetablissement', '_so' => 'asc')); ?>'><i class='icon-arrow-up'></i></a>
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'idetablissement', '_so' => 'desc')); ?>'><i class='icon-arrow-down'></i></a>
                 
             </th>
-            <th<?php if ('denomination' == $this->sortField) echo ' class="sort-field sort-', htmlspecialchars($this->param_so), '"'; ?>>
-                Denomination 
-                <a href='<?php echo $this->url($_GET + array('_sf' => 'denomination', '_so' => 'asc')); ?>'><i class='icon-arrow-up'></i></a>
-                <a href='<?php echo $this->url($_GET + array('_sf' => 'denomination', '_so' => 'desc')); ?>'><i class='icon-arrow-down'></i></a>
+            <th<?php if ('universite' == $this->sortField) echo ' class="sort-field sort-', htmlspecialchars($this->param_so), '"'; ?>>
+                Universite 
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'universite', '_so' => 'asc')); ?>'><i class='icon-arrow-up'></i></a>
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'universite', '_so' => 'desc')); ?>'><i class='icon-arrow-down'></i></a>
+                <?php
+    echo $this->formSelect('universite', $this->paramuniversite, array('onchange' => 'updateFilters(\'universite\', this.options[this.selectedIndex].value)'), array('' => '- - Change - -') + $tableUniversite->fetchPairsExtended(null,array('universite'=>2)));
+?>
+            </th>
+            <th<?php if ('directeur' == $this->sortField) echo ' class="sort-field sort-', htmlspecialchars($this->param_so), '"'; ?>>
+                Directeur 
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'directeur', '_so' => 'asc')); ?>'><i class='icon-arrow-up'></i></a>
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'directeur', '_so' => 'desc')); ?>'><i class='icon-arrow-down'></i></a>
+                <?php
+    echo $this->formSelect('directeur', $this->paramdirecteur, array('onchange' => 'updateFilters(\'directeur\', this.options[this.selectedIndex].value)'), array('' => '- - Change - -') + $tableDirecteur->fetchPairsExtended());
+?>
+            </th>
+            <th<?php if ('site_web' == $this->sortField) echo ' class="sort-field sort-', htmlspecialchars($this->param_so), '"'; ?>>
+                Site Web 
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'site_web', '_so' => 'asc')); ?>'><i class='icon-arrow-up'></i></a>
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'site_web', '_so' => 'desc')); ?>'><i class='icon-arrow-down'></i></a>
+                
+            </th>
+            <th<?php if ('email' == $this->sortField) echo ' class="sort-field sort-', htmlspecialchars($this->param_so), '"'; ?>>
+                Email 
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'email', '_so' => 'asc')); ?>'><i class='icon-arrow-up'></i></a>
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'email', '_so' => 'desc')); ?>'><i class='icon-arrow-down'></i></a>
                 
             </th>
             <th<?php if ('adresse' == $this->sortField) echo ' class="sort-field sort-', htmlspecialchars($this->param_so), '"'; ?>>
@@ -114,20 +183,68 @@ function updateFilters(paramName, paramValue)
                 <a href='<?php echo $this->url($_GET + array('_sf' => 'numtel', '_so' => 'desc')); ?>'><i class='icon-arrow-down'></i></a>
                 
             </th>
+
             <th>Actions</th>
         </tr>
     </tfoot>
     <tbody>
 <?php foreach ($this->paginator as $row): ?>
+    <?php if($row->idetablissement!=1000) {?>
         <tr>
-            <td align="center"><input type="checkbox" name="del_id[]" value="<?php echo $row->codeetab; ?>" /></td>
-            <td><?php echo htmlspecialchars($row->codeetab); ?></td>
-            <td><?php echo htmlspecialchars($row->denomination); ?></td>
+            <td align="center"><input type="checkbox" name="del_id[]" value="<?php echo $row->idetablissement; ?>" /></td>
+            <td><?php //echo htmlspecialchars($row->image);
+                //echo $row->idetablissement;
+                $tablefileEtablissement = new Application_Model_FilesEtablissement_DbTable();
+                $rw=$tablefileEtablissement->fetchRow('codedem='.$row->idetablissement);
+
+                if(!empty($rw->name)){
+                ?>
+
+                <img src="<?=$this->baseUrl();?>/etablissement/<?=$row->idetablissement;?>/thumbnail/<?php echo $rw->name;?>" />
+                    <a href="<?php echo $this->url(array('module' => 'admin','controller' => 'etablissement',
+                        'action' => 'gestionfichier', 'id' => $row->idetablissement), null, true); ?>">Modifier</a>
+                <?php }else { $rw=null;?>
+                <a href="<?php echo $this->url(array('module' => 'admin','controller' => 'etablissement',
+                    'action' => 'gestionfichier', 'id' => $row->idetablissement), null, true); ?>">Ajout</a>
+                <?php } $rw=null;?>
+            <td><?php
+                echo $tableEtablissement->findbyidJoin($row->idetablissement);
+                echo htmlspecialchars($row->idetablissement);
+
+                ?></td>
+            <td><?php
+                $linkedRow = $tableUniversite->find($row->universite)->current();
+                echo $tableUniversite->findbyidJoin($row->universite);
+    if ($linkedRow) {
+        //echo htmlspecialchars($linkedRow->getZodekenAutoLabel());
+    } else {
+        //echo htmlspecialchars($linkedRow->universite), ' (unlinked)';
+    } ?></td>
+            <td><?php     $linkedRow = $tableDirecteur->find($row->directeur)->current();
+
+    if ($linkedRow) {
+        echo htmlspecialchars($linkedRow->getPrenom().' '.$linkedRow->getZodekenAutoLabel());
+    } else {
+        //echo htmlspecialchars($linkedRow->directeur), ' (unlinked)';
+    } ?></td>
+            <td><?php echo htmlspecialchars($row->site_web); ?></td>
+            <td><?php echo htmlspecialchars($row->email); ?></td>
             <td><?php echo htmlspecialchars($row->adresse); ?></td>
             <td align="right"><?php echo htmlspecialchars($row->numtel); ?></td>
-            <td align="center"><a href="<?php echo $this->url(array('module' => 'admin','controller' => 'etablissement', 'action' => 'update', 'id' => $row->codeetab), null, true); ?>">Edit</a> 
-    - <a onclick="return confirm('Confirm deletion!');" href="<?php echo $this->url(array('module' => 'admin','controller' => 'etablissement', 'action' => 'delete', 'del_id' => $row->codeetab), null, true); ?>">Delete</a></td>
+
+            <td align="center">
+                <<a href="<?php echo $this->url(array('module' => 'admin','controller' => 'etablissement', 'action' => 'update', 'id' => $row->idetablissement), null, true); ?>">Modifier Informations</a>>
+
+                <<a href="<?php echo $this->url(array('module' => 'admin','controller' => 'parcours', 'action' => 'index'), null, true); ?>?etablissement=<?=$row->idetablissement;?>">Parcours</a>>
+
+                <<a href="<?php echo $this->url(array('module' => 'admin','controller' => 'personnel', 'action' => 'index'), null, true); ?>?etablissement=<?=$row->idetablissement;?>">Personnels</a>>
+
+
+                <!--<a onclick="return confirm('Confirm deletion!');" href="<?php echo $this->url(array('module' => 'admin','controller' => 'etablissement', 'action' => 'delete', 'del_id' => $row->idetablissement), null, true); ?>">Delete</a>-->
+
+            </td>
         </tr>
+    <?php  }?>
 <?php endforeach; ?>
     </tbody>
 </table><br />

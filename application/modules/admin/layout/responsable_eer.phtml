@@ -14,7 +14,13 @@
     <!-- Bootstrap Core CSS -->
  
     <?php $this->headLink()->appendStylesheet($this->baseUrl().'/bower_components/bootstrap/dist/css/bootstrap.min.css'); ?>
-    <?php $this->headLink()->appendStylesheet($this->baseUrl().'/bower_components/metisMenu/dist/metisMenu.min.css'); ?>  
+    <?php $this->headLink()->appendStylesheet($this->baseUrl().'/bower_components/metisMenu/dist/metisMenu.min.css');
+
+    $this->headScript()->appendFile($this->baseUrl().'/js/quickselect/chosen.jquery.js');
+    $this->headLink()->appendStylesheet($this->baseUrl().'/js/quickselect/chosen.css');
+
+
+    ?>
     <?php 
     $this->headScript()->appendFile($this->baseUrl().'/bower_components/jquery/dist/jquery.min.js');
     $this->headScript()->appendFile($this->baseUrl().'/bower_components/bootstrap/dist/js/bootstrap.min.js'); ?>

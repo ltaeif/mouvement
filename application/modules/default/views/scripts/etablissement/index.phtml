@@ -1,5 +1,5 @@
 <?php
-$this->headTitle('Etablissement Management');
+$this->headTitle('Gestion des établissements');
 ?>
 <?php
 $tableUniversite = new Application_Model_Universite_DbTable();
@@ -38,7 +38,7 @@ function updateFilters(paramName, paramValue)
 </script>
 
 <div class="page-header">
-   <h1>Etablissement Management</h1>
+   <h1>Gestion des établissements</h1>
 </div>
 
 <div class="pull-right">
@@ -77,7 +77,7 @@ function updateFilters(paramName, paramValue)
                 <a href='<?php echo $this->url($_GET + array('_sf' => 'universite', '_so' => 'asc')); ?>'><i class='icon-arrow-up'></i></a>
                 <a href='<?php echo $this->url($_GET + array('_sf' => 'universite', '_so' => 'desc')); ?>'><i class='icon-arrow-down'></i></a>
                 <?php
-    echo $this->formSelect('universite', $this->paramuniversite, array('onchange' => 'updateFilters(\'universite\', this.options[this.selectedIndex].value)'), array('' => '- - Change - -') + $tableUniversite->fetchPairs());
+    echo $this->formSelect('universite', $this->paramuniversite, array('onchange' => 'updateFilters(\'universite\', this.options[this.selectedIndex].value)'), array('' => '- - Change - -') + $tableUniversite->fetchPairsExtended(null,array('universite'=>2)));
 ?>
             </th>
             <th<?php if ('directeur' == $this->sortField) echo ' class="sort-field sort-', htmlspecialchars($this->param_so), '"'; ?>>
@@ -135,7 +135,7 @@ function updateFilters(paramName, paramValue)
                 <a href='<?php echo $this->url($_GET + array('_sf' => 'universite', '_so' => 'asc')); ?>'><i class='icon-arrow-up'></i></a>
                 <a href='<?php echo $this->url($_GET + array('_sf' => 'universite', '_so' => 'desc')); ?>'><i class='icon-arrow-down'></i></a>
                 <?php
-    echo $this->formSelect('universite', $this->paramuniversite, array('onchange' => 'updateFilters(\'universite\', this.options[this.selectedIndex].value)'), array('' => '- - Change - -') + $tableUniversite->fetchPairs());
+    echo $this->formSelect('universite', $this->paramuniversite, array('onchange' => 'updateFilters(\'universite\', this.options[this.selectedIndex].value)'), array('' => '- - Change - -') + $tableUniversite->fetchPairsExtended(null,array('universite'=>2)));
 ?>
             </th>
             <th<?php if ('directeur' == $this->sortField) echo ' class="sort-field sort-', htmlspecialchars($this->param_so), '"'; ?>>

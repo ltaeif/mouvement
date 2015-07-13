@@ -285,9 +285,7 @@ class Default_DemandeController extends Zend_Controller_Action
 		$directories=array('dircin'=>$dircin,'dirdemande'=>$dirdemande,'cin'=>$CIN,'demande_codedem'=>$demande_codedem);
 		
 		$this->view->directories=$directories;
-		
-		
-		 
+
 	
     }
 	

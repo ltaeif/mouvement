@@ -148,6 +148,12 @@ abstract class Application_Model_Chparcours_DbTable_Abstract extends Zend_Db_Tab
             $select->where('codedem = ?', $params['codedem']);
         }
 
+        if (isset($params['etat']) && !empty($params['etat'])) {
+
+            $select->join("demande",  "chparcours.codedem=demande.codedem");
+            $select->where('etat = ?', $params['etat']);
+        }
+
         if (isset($params['code_inscription']) && !empty($params['code_inscription'])) {
             $select->where('code_inscription = ?', $params['code_inscription']);
         }

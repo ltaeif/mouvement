@@ -26,9 +26,12 @@ class Admin_ChparcoursController extends Zend_Controller_Action
         $sortField = $this->_getParam('_sf', '');
         $sortOrder = $this->_getParam('_so', '');
         $pageNumber = $this->_getParam('page', 1);
+
+       //print_r($this->_getAllParams());
         
         $tableChparcours = new Application_Model_Chparcours_DbTable();
         $gridSelect = $tableChparcours->getDbSelectByParams($this->_getAllParams(), $sortField, $sortOrder);
+
         $paginator = Zend_Paginator::factory($gridSelect);
         $paginator->setItemCountPerPage(20)
             ->setCurrentPageNumber($pageNumber);

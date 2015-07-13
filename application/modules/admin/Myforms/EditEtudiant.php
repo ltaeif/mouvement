@@ -42,12 +42,7 @@ class Application_Myforms_EditEtudiant extends Zend_Form
                 ->addFilter(new Zend_Filter_StringTrim())
         );
 
-        $tableInscription = new Application_Model_Inscription_DbTable();
-        $this->addElement(
-            $this->createElement('select', 'code_inscription')
-                ->setLabel('Code Inscription')
-                ->setMultiOptions(array("" => "- - Select - -") + $tableInscription->fetchPairs())
-        );
+
 
         $this->addElement(
             $this->createElement('text', 'date_naissance')
@@ -160,13 +155,14 @@ class Application_Myforms_EditEtudiant extends Zend_Form
                 ->addValidator(new Zend_Validate_InArray(array('haystack' => array('Moyen' => 'Moyen','Assez Bien' => 'Assez Bien','Bien' => 'Bien','Très Bien' => 'Très Bien'))), true)
         );
 
-        $tableEtablissement = new Application_Model_Etablissement_DbTable();
+        $tableEtablissement = new Application_Mytables_Etablissement();
         $this->addElement(
             $this->createElement('select', 'etablissement')
                 ->setLabel('Etablissement')
-                ->setMultiOptions(array("" => "- - Select - -") + $tableEtablissement->fetchPairs())
+                ->setMultiOptions(array("" => "- - Select - -") + $tableEtablissement->fetchPairsExtended(array('idetablissement','intitule')))
                 ->setRequired(true)
         );
+
 
         $this->addElement(
             $this->createElement('text', 'specialite')

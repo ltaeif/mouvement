@@ -3,7 +3,7 @@
 /**
  * Rowset definition class for table authentif.
  *
- * @package Default
+ * @package Admin
  * @author Zodeken
  * @version $Id$
  *

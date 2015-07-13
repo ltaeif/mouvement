@@ -16,7 +16,9 @@ class Admin_IndexController extends Zend_Controller_Action
 		 $tableDemande = new Application_Mytables_Demande();
 	   $this->view->demandes= $tableDemande->fetchALL();
 	  $tableDemande = new Application_Mytables_Etudiant();
-		 $this->view->etudiants= $tableDemande->lookforuser();
+		 $this->view->etudiants= $tableDemande->fetchALL();
+
+
     }
     
     public function quituesAction(){
@@ -28,7 +30,13 @@ class Admin_IndexController extends Zend_Controller_Action
 	 $tableDemande = new Application_Mytables_Demande();
 	$this->view->demandes= $tableDemande->fetchALL();
 	  $tableDemande = new Application_Mytables_Etudiant();
-		 $this->view->etudiants= $tableDemande->lookforuser();
+        $this->view->etudiants= $tableDemande->fetchALL();
+
+
+
+
+
+
     }
 	
 	public function dashboardAction(){

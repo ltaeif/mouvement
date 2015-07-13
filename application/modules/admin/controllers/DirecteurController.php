@@ -10,6 +10,14 @@
  */
 class Admin_DirecteurController extends Zend_Controller_Action
 {
+
+    public function init()
+    {
+        /* Initialize action controller here */
+        $this->_helper->layout()->setLayout("home");
+
+    }
+
     public function indexAction()
     {
         $this->getFrontController()->getRequest()->setParams($_GET);
@@ -98,10 +106,17 @@ class Admin_DirecteurController extends Zend_Controller_Action
         if (!is_array($ids)) {
             $ids = array($ids);
         }
-        
-        if (!empty($ids)) {
-            $tableDirecteur = new Application_Model_Directeur_DbTable();
-            $tableDirecteur->deleteMultipleIds($ids);
+
+        try{
+
+            if (!empty($ids)) {
+                $tableDirecteur = new Application_Model_Directeur_DbTable();
+                $tableDirecteur->deleteMultipleIds($ids);
+            }
+
+
+        } catch(Zend_Db_Statement_Exception  $e) {
+            $this->_helper->redirector('index');
         }
         
         $this->_helper->redirector('index');

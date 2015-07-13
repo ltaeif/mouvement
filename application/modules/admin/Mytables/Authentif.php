@@ -7,6 +7,7 @@ class Application_Mytables_Authentif extends Application_Model_Authentif_DbTable
 		$etudiantstore =null;
 		$auth = Zend_Auth_Admin::getInstance();
 		$etudiantstore=(array)$auth->getStorage()->read();
+        //print_r($etudiantstore);
 		return $etudiantstore;
 	
 	}

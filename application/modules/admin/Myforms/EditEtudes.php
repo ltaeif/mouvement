@@ -24,15 +24,14 @@ class Application_Myforms_EditEtudes extends Zend_Form
                 ->setLabel('Cin')
                 ->setMultiOptions(array("" => "- - Select - -") + $tableEtudiant->fetchPairs())
                 ->setRequired(true)
-        );*/
+        );
 
-        $this->addElement(
+		$this->addElement(
             $this->createElement('text', 'annee_universitaire')
                 ->setLabel('Annee Universitaire')
                 ->addValidator(new Zend_Validate_Int(), true)
                 ->addFilter(new Zend_Filter_StringTrim())
         );
-
         $this->addElement(
             $this->createElement('text', 'etablissement')
                 ->setLabel('Etablissement')
@@ -40,7 +39,25 @@ class Application_Myforms_EditEtudes extends Zend_Form
                 ->setAttrib("class", "input-xlarge")
                 ->addValidator(new Zend_Validate_StringLength(array("max" => 255)), true)
                 ->addFilter(new Zend_Filter_StringTrim())
+        );*/
+
+
+        $tableAnneeUniversitaire = new Application_Model_AnneeUniversitaire_DbTable();
+        $this->addElement(
+            $this->createElement('select', 'annee_universitaire')
+                ->setLabel('Annee Universitaire')
+                ->setMultiOptions(array("" => "- - Select - -") + $tableAnneeUniversitaire->fetchPairs())
+                ->setRequired(true)
         );
+
+        $tableEtablissement = new Application_Mytables_Etablissement();
+        $this->addElement(
+            $this->createElement('select', 'etablissement')
+                ->setLabel('Etablissement')
+                ->setMultiOptions(array("" => "- - Select - -") + $tableEtablissement->fetchPairsExtended(array('idetablissement','intitule')))
+                ->setRequired(true)
+        );
+
 
         $this->addElement(
             $this->createElement('radio', 'niveau')

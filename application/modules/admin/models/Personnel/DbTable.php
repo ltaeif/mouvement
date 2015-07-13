@@ -3,7 +3,7 @@
 /**
  * Definition class for table personnel.
  *
- * @package Default
+ * @package Admin
  * @author Zodeken
  * @version $Id$
  */

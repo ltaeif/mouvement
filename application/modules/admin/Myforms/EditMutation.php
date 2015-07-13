@@ -30,19 +30,6 @@ class Application_Myforms_EditMutation extends Zend_Form
         );
 
         $this->addElement(
-            $this->createElement('text', 'section_actuelle')
-                ->setLabel('Section Actuelle')
-                ->setAttrib("maxlength", 255)
-                ->setAttrib("class", "input-xlarge")
-                ->setRequired(true)
-                ->addValidator(new Zend_Validate_StringLength(array("max" => 255)), true)
-                ->addFilter(new Zend_Filter_StringTrim())
-        );
-
-        
-     
-
-        $this->addElement(
             $this->createElement('radio', 'niveau_actuelle')
                 ->setLabel('Niveau Actuelle')
                 ->setMultiOptions(array('1ere année' => '1ere année','2eme année' => '2eme année','3eme année' => '3eme année'))
@@ -61,26 +48,25 @@ class Application_Myforms_EditMutation extends Zend_Form
 
     
     
-		
-		$tableEtablissement = new Application_Mytables_Etablissement();
-        $this->addElement(
-            $this->createElement('select', 'etablissement_demande')
-                ->setLabel('Etablissement Demande')
-                ->setMultiOptions(array("" => "- - Select - -") + $tableEtablissement->fetchPairsExtended(array('idetablissement','intitule')))
-                ->setRequired(true)
-        );
-
-    
-        $tableParcours = new Application_Mytables_Parcours();
+		$tableParcours = new Application_Mytables_Parcours();
 		
 		
         $this->addElement(
             $this->createElement('select', 'section_demande')
                 ->setLabel('Section Demande')
-                ->setMultiOptions(array("" => "- - Select - -") + $tableParcours->fetchPairsExtended())
+                ->setMultiOptions(array("" => "- - Select - -") + $tableParcours->fetchPairsExtended(null,array('annee_universitaire'=>'20'.date('y'),'universite'=>2)))
                 ->setRequired(true)
         );
 
+       
+       
+		$tableEtablissement = new Application_Mytables_Etablissement();
+        $this->addElement(
+            $this->createElement('select', 'etablissement_demande')
+                ->setLabel('Etablissement Demande')
+                ->setMultiOptions(array("" => "- - Select - -") + $tableEtablissement->fetchPairsExtended(array('idetablissement','intitule'),array('universite'=>2)))
+                ->setRequired(true)
+        );
 
     
 

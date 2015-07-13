@@ -10,6 +10,9 @@
  */
 class Default_DirecteurController extends Zend_Controller_Action
 {
+
+
+
     public function indexAction()
     {
         $this->getFrontController()->getRequest()->setParams($_GET);
@@ -98,11 +101,20 @@ class Default_DirecteurController extends Zend_Controller_Action
         if (!is_array($ids)) {
             $ids = array($ids);
         }
-        
-        if (!empty($ids)) {
-            $tableDirecteur = new Application_Model_Directeur_DbTable();
-            $tableDirecteur->deleteMultipleIds($ids);
+
+        try{
+
+            if (!empty($ids)) {
+                $tableDirecteur = new Application_Model_Directeur_DbTable();
+                $tableDirecteur->deleteMultipleIds($ids);
+            }
+
+
+        } catch(Execption $e) {
+            $this->_helper->redirector('index');
         }
+
+
         
         $this->_helper->redirector('index');
         exit;

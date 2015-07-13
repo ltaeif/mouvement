@@ -2,7 +2,7 @@
 $this->headTitle('Personnel Management');
 ?>
 <?php
-$tableEtablissement = new Application_Model_Etablissement_DbTable();
+$tableEtablissement = new Application_Mytables_Etablissement();
 $tableAuthentif = new Application_Model_Authentif_DbTable();
 ?>
 
@@ -55,7 +55,7 @@ function updateFilters(paramName, paramValue)
   'adresse' => 'Adresse',
   'Titre' => 'Titre',
   'organisme' => 'Organisme',
-  'etablissement_codeetab' => 'Etablissement Codeetab',
+  'etablissement' => 'Etablissement ',
 )); ?>
     
 <button class="btn" type="submit"><i class="icon-search"></i> Search</button>
@@ -115,12 +115,12 @@ function updateFilters(paramName, paramValue)
                 <a href='<?php echo $this->url($_GET + array('_sf' => 'organisme', '_so' => 'desc')); ?>'><i class='icon-arrow-down'></i></a>
                 
             </th>
-            <th<?php if ('etablissement_codeetab' == $this->sortField) echo ' class="sort-field sort-', htmlspecialchars($this->param_so), '"'; ?>>
-                Etablissement Codeetab 
-                <a href='<?php echo $this->url($_GET + array('_sf' => 'etablissement_codeetab', '_so' => 'asc')); ?>'><i class='icon-arrow-up'></i></a>
-                <a href='<?php echo $this->url($_GET + array('_sf' => 'etablissement_codeetab', '_so' => 'desc')); ?>'><i class='icon-arrow-down'></i></a>
+            <th<?php if ('etablissement' == $this->sortField) echo ' class="sort-field sort-', htmlspecialchars($this->param_so), '"'; ?>>
+                Etablissement  
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'etablissement', '_so' => 'asc')); ?>'><i class='icon-arrow-up'></i></a>
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'etablissement', '_so' => 'desc')); ?>'><i class='icon-arrow-down'></i></a>
                 <?php
-    echo $this->formSelect('etablissement_codeetab', $this->parametablissement_codeetab, array('onchange' => 'updateFilters(\'etablissement_codeetab\', this.options[this.selectedIndex].value)'), array('' => '- - Change - -') + $tableEtablissement->fetchPairs());
+    echo $this->formSelect('etablissement', $this->parametablissement, array('onchange' => 'updateFilters(\'etablissement\', this.options[this.selectedIndex].value)'), array('' => '- - Change - -') + $tableEtablissement->fetchPairsExtended());
 ?>
             </th>
             <th<?php if ('authentif_id' == $this->sortField) echo ' class="sort-field sort-', htmlspecialchars($this->param_so), '"'; ?>>
@@ -185,12 +185,12 @@ function updateFilters(paramName, paramValue)
                 <a href='<?php echo $this->url($_GET + array('_sf' => 'organisme', '_so' => 'desc')); ?>'><i class='icon-arrow-down'></i></a>
                 
             </th>
-            <th<?php if ('etablissement_codeetab' == $this->sortField) echo ' class="sort-field sort-', htmlspecialchars($this->param_so), '"'; ?>>
-                Etablissement Codeetab 
-                <a href='<?php echo $this->url($_GET + array('_sf' => 'etablissement_codeetab', '_so' => 'asc')); ?>'><i class='icon-arrow-up'></i></a>
-                <a href='<?php echo $this->url($_GET + array('_sf' => 'etablissement_codeetab', '_so' => 'desc')); ?>'><i class='icon-arrow-down'></i></a>
+            <th<?php if ('etablissement' == $this->sortField) echo ' class="sort-field sort-', htmlspecialchars($this->param_so), '"'; ?>>
+                Etablissement  
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'etablissement', '_so' => 'asc')); ?>'><i class='icon-arrow-up'></i></a>
+                <a href='<?php echo $this->url($_GET + array('_sf' => 'etablissement', '_so' => 'desc')); ?>'><i class='icon-arrow-down'></i></a>
                 <?php
-    echo $this->formSelect('etablissement_codeetab', $this->parametablissement_codeetab, array('onchange' => 'updateFilters(\'etablissement_codeetab\', this.options[this.selectedIndex].value)'), array('' => '- - Change - -') + $tableEtablissement->fetchPairs());
+    echo $this->formSelect('etablissement', $this->parametablissement, array('onchange' => 'updateFilters(\'etablissement\', this.options[this.selectedIndex].value)'), array('' => '- - Change - -') + $tableEtablissement->fetchPairsExtended());
 ?>
             </th>
             <th<?php if ('authentif_id' == $this->sortField) echo ' class="sort-field sort-', htmlspecialchars($this->param_so), '"'; ?>>
@@ -216,12 +216,15 @@ function updateFilters(paramName, paramValue)
             <td align="right"><?php echo htmlspecialchars($row->numtel); ?></td>
             <td><?php echo htmlspecialchars($row->Titre); ?></td>
             <td><?php echo htmlspecialchars($row->organisme); ?></td>
-            <td><?php     $linkedRow = $tableEtablissement->find($row->etablissement_codeetab)->current();
+            <td><?php
+                echo $tableEtablissement->findbyidJoin($row->etablissement);
+                //echo htmlspecialchars($row->idetablissement);
+             /* $linkedRow = $tableEtablissement->find($row->etablissement)->current();
     if ($linkedRow) {
         echo htmlspecialchars($linkedRow->getZodekenAutoLabel());
     } else {
-        echo htmlspecialchars($linkedRow->etablissement_codeetab), ' (unlinked)';
-    } ?></td>
+        echo htmlspecialchars($linkedRow->etablissement), ' (unlinked)';
+    }*/ ?></td>
             <td><?php     $linkedRow = $tableAuthentif->find($row->authentif_id)->current();
     if ($linkedRow) {
         echo htmlspecialchars($linkedRow->getZodekenAutoLabel());

@@ -3,9 +3,6 @@
 class Application_Mytables_Parcours extends Application_Model_Parcours_DbTable
 {	
     
-    
-        
-     
 
 	public function lookforparcours($idetablissement=null, $annee=null,$universite=null)
 	{
@@ -99,10 +96,7 @@ class Application_Mytables_Parcours extends Application_Model_Parcours_DbTable
 		
 		if(!empty($constraint)) 	$select->where($constraint);
 		
-		
-		
-		
-		
+
 		$records = $this->fetchAll($select);
 		
 		$tabs=array();

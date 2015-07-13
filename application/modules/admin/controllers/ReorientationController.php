@@ -180,4 +180,39 @@ class Admin_ReorientationController extends Zend_Controller_Action
 		
 		
 	}
+
+
+    function cleanexportAction()
+    {
+
+
+
+        $this->getFrontController()->getRequest()->setParams($_GET);
+
+        // zsf = zodeken sort field, zso = zodeken sort order
+        $sortField = $this->_getParam('_sf', '');
+        $sortOrder = $this->_getParam('_so', '');
+        $pageNumber = $this->_getParam('page', 1);
+
+        $tableReorientation = new Application_Model_Reorientation_DbTable();
+        $gridSelect = $tableReorientation->getDbSelectByParams($this->_getAllParams(), $sortField, $sortOrder);
+        $paginator = Zend_Paginator::factory($gridSelect);
+        /*$paginator->setItemCountPerPage(20)
+            ->setCurrentPageNumber($pageNumber);
+        */
+
+        $this->view->assign(array(
+            'paginator' => $paginator,
+            'sortField' => $sortField,
+            'sortOrder' => $sortOrder,
+            'pageNumber' => $pageNumber,
+        ));
+
+        foreach ($this->_getAllParams() as $paramName => $paramValue)
+        {
+            // prepend 'param' to avoid error of setting private/protected members
+            $this->view->assign('param' . $paramName, $paramValue);
+        }
+
+    }
 }

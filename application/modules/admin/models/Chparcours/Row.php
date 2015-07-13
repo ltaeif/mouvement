@@ -3,7 +3,7 @@
 /**
  * Row definition class for table chparcours.
  *
- * @package Default
+ * @package Admin
  * @author Zodeken
  * @version $Id$
  *

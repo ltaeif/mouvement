@@ -3,7 +3,7 @@
 /**
  * Definition class for table parcours.
  *
- * @package Default
+ * @package Admin
  * @author Zodeken
  * @version $Id$
  */

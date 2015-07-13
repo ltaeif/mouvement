@@ -1139,6 +1139,8 @@ class UploadHandler
             $sql = 'INSERT INTO `'.$this->options['db_table']
                 .'` (`name`, `size`, `type`, `title`, `description`,`url`,`codedem`)'
                 .' VALUES (?, ?, ?, ?,?, ?, ?)';
+
+            //echo $sql;
             $query = $this->db->prepare($sql);
             $query->bind_param(
                 'sissssi',
@@ -1152,7 +1154,7 @@ class UploadHandler
             );
             $query->execute();
             $file->id = $this->db->insert_id;
-			
+
 			
 
         }

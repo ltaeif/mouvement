@@ -20,11 +20,11 @@ class Application_Myforms_EditParcours extends Zend_Form
         );
 
         $this->addElement(
-            $this->createElement('text', 'code')
-                ->setLabel('Code')
+            $this->createElement('hidden', 'code')
+                //->setLabel('Code')
                 ->setAttrib("maxlength", 20)
                 ->setAttrib("class", "input-xlarge")
-                ->setRequired(true)
+                //->setRequired(true)
                 ->addValidator(new Zend_Validate_StringLength(array("max" => 20)), true)
                 ->addFilter(new Zend_Filter_StringTrim())
         );
@@ -33,33 +33,44 @@ class Application_Myforms_EditParcours extends Zend_Form
         $this->addElement(
             $this->createElement('select', 'annee_universitaire')
                 ->setLabel('Annee Universitaire')
-                ->setMultiOptions(array("" => "- - Select - -") + $tableAnneeUniversitaire->fetchPairs())
+                ->setMultiOptions(array("" => "- - Select - -") + $tableAnneeUniversitaire->fetchPairs(null,'annee DESC'))
                 ->setRequired(true)
         );
 
-        $tableDomaine = new Application_Model_Domaine_DbTable();
+        $tableEtablissement = new Application_Mytables_Etablissement();
+        $this->addElement(
+            $this->createElement('select', 'etablissement')
+                ->setLabel('Etablissement')
+                ->setMultiOptions(array("" => "- - Select - -") + $tableEtablissement->fetchPairsExtended(array('idetablissement','intitule')))
+                ->setRequired(true)
+        );
+
+
+        $tableDomaine = new Application_Mytables_Domaine();
         $this->addElement(
             $this->createElement('select', 'domaine')
                 ->setLabel('Domaine')
-                ->setMultiOptions(array("" => "- - Select - -") + $tableDomaine->fetchPairs())
+                ->setMultiOptions(array("" => "- - Select - -") + $tableDomaine->fetchPairsExtended())
                 ->setRequired(true)
         );
 
-        $tableMention = new Application_Model_Mention_DbTable();
+        $tableMention = new Application_Mytables_Mention();
         $this->addElement(
             $this->createElement('select', 'mention')
                 ->setLabel('Mention')
-                ->setMultiOptions(array("" => "- - Select - -") + $tableMention->fetchPairs())
+                ->setMultiOptions(array("" => "- - Select - -") + $tableMention->fetchPairsExtended())
                 ->setRequired(true)
         );
 
-        $tableDiplome = new Application_Model_Diplome_DbTable();
+        $tableDiplome = new Application_Mytables_Diplome();
         $this->addElement(
             $this->createElement('select', 'diplome_specialite')
                 ->setLabel('Diplome Specialite')
-                ->setMultiOptions(array("" => "- - Select - -") + $tableDiplome->fetchPairs())
+                ->setMultiOptions(array("" => "- - Select - -") + $tableDiplome->fetchPairsExtended())
                 ->setRequired(true)
         );
+
+
 
       $tableEtablissement = new Application_Mytables_Etablissement();
         $this->addElement(

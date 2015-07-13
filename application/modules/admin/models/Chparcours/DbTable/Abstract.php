@@ -134,6 +134,7 @@ abstract class Application_Model_Chparcours_DbTable_Abstract extends Zend_Db_Tab
     public function getDbSelectByParams($params = array(), $sortField = '', $sortOrder = '')
     {
         $select = $this->select(true);
+        $select ->setIntegrityCheck(false); // ADD This Line
         
         if ($sortField != '' && $sortOrder != '') {
             if ('desc' === strtolower($sortOrder)) {
@@ -143,7 +144,14 @@ abstract class Application_Model_Chparcours_DbTable_Abstract extends Zend_Db_Tab
             }
             $select->order("$sortField $sortOrder");
         }
-        
+        if (isset($params['etat']) && !empty($params['etat'])) {
+
+            $select->join(array('demande' => 'demande'),
+                'chparcours.codedem = demande.codedem')
+                ->where('etat = ?', $params['etat']);;
+         }
+
+
         if (isset($params['codedem']) && !empty($params['codedem'])) {
             $select->where('codedem = ?', $params['codedem']);
         }

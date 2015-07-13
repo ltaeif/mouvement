@@ -3,7 +3,7 @@
 /**
  * Row definition class for table annee_universitaire.
  *
- * @package Default
+ * @package Admin
  * @author Zodeken
  * @version $Id$
  *

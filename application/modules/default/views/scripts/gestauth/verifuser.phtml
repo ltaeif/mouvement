@@ -1,7 +1,9 @@
 <?php if($this->user!=false):
 //var_dump($this->user);
 ?>
-<a href="#">Envoyer mes coordonnées dans mon email</a>
+
+    <a href="<?=$this->url(array("action"=>"getinfos","controller"=>"gestauth","module"=>"default"))?>?email=<?=$this->user['login']?>">Envoyer mes coordonnÃ©es dans mon email</a>
+
 <?php else :?>
 OK
 <?php endif;?>

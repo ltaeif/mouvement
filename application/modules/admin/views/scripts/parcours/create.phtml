@@ -1,3 +1,35 @@
+<style>
+
+    select {width:290px;}
+
+</style>
+
+
+
+    <script type="text/javascript">
+
+        $(document).ready(function(){
+
+
+
+            //$('#etablissement').val('<?=$this->escape($this->parametabliseement);?>');
+          //  jQuery('#etablissement_demande').val(json.etablissement);
+
+            $('#etablissement option[value="'+'<?=$this->escape($this->parametablissement);?>'+'"]').attr('selected', true);
+
+
+            jQuery('#etablissement').trigger("chosen:updated");
+
+        });
+
+
+
+
+    </script>
+<?php if(!empty($this->parametablissement) ) {?>
+<?php } ?>
+
+
 <?php
 $this->headTitle('Create Parcours');
 $form = $this->form;

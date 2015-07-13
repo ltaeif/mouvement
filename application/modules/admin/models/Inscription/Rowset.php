@@ -3,7 +3,7 @@
 /**
  * Rowset definition class for table inscription.
  *
- * @package Default
+ * @package Admin
  * @author Zodeken
  * @version $Id$
  *

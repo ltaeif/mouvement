@@ -7,6 +7,17 @@ $tableEtudiant = new Application_Model_Etudiant_DbTable();
 ?>
 
 <script type="text/javascript">
+
+    function Export(table)
+    {
+        var str=location.href;
+        str=str.replace('Demande/index','Demande/export');
+
+       // $("#myform").attr('action')
+        //alert(str);
+        //location.href=str;
+    }
+
 function toggleCheckboxes(source)
 {
     var checkboxes = document.getElementsByName('del_id[]');
@@ -43,7 +54,10 @@ function updateFilters(paramName, paramValue)
 
 <div class="pull-right">
 <a class="btn btn-info" href="<?php echo $this->url(array('module' => 'admin','controller' => 'demande', 'action' => 'index'), null, true); ?>"><i class=" icon-refresh icon-white"></i> Reset Filters</a>
-<a class="btn btn-success" href="<?php echo $this->url(array('module' => 'admin','controller' => 'demande', 'action' => 'create'), null, true); ?>"><i class="icon-plus icon-white"></i> Add New</a></div><br />
+<a class="btn btn-success" href="<?php echo $this->url(array('module' => 'admin','controller' => 'demande', 'action' => 'create'), null, true); ?>"><i class="icon-plus icon-white"></i> Add New</a></div>
+
+    <br />
+
 
 <form class="form form-inline" method="get" action="<?php echo $this->url(array('module' => 'admin','controller' => 'demande', 'action' => 'index'), null, true); ?>">
 <div>
@@ -57,8 +71,8 @@ function updateFilters(paramName, paramValue)
 </div>
 </form>
 
-<form method="post" action="<?php echo $this->url(array('module' => 'admin','controller' => 'demande', 'action' => 'desactiver'), null, true); ?>" onsubmit="return confirm('Delete selected rows?');">
-<table class="table table-bordered table-striped">
+<form method="post" id="myform" action="<?php echo $this->url(array('module' => 'admin','controller' => 'demande', 'action' => 'export'), null, true); ?>" onsubmit="Export('table');">
+<table class="table table-bordered table-striped" id="table">
     <thead>
         <tr>
             <th><input type="checkbox" onchange="toggleCheckboxes(this);" /></th>
@@ -252,8 +266,10 @@ function updateFilters(paramName, paramValue)
 <?php endforeach; ?>
     </tbody>
 </table><br />
-<button class="btn btn-danger" type="submit"><i class=" icon-trash icon-white"></i> Delete Selected Rows</button>
+<!--<button class="btn btn-danger" type="submit"><i class=" icon-trash icon-white"></i> Delete Selected Rows</button>-->
+    <button class="btn btn-success"  type="submit" onclick="//Export('table');"><i class="  icon-white"></i> Export Excel</button>
 </form>
+
 
 <?php echo $this->paginationControl($this->paginator,
                                     'Sliding',

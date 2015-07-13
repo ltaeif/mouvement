@@ -140,11 +140,19 @@ protected function _initConfiguration()
 		try {
 			$config = array(
 					'auth' => 'login',
-					'username' => 'oussama.limam@gmail.com',
-					'password' => 'AZERTY',
+					'username' => 'uma.mouvement@gmail.com',
+					'password' => 'mouvement2015',
 					'ssl' => 'tls',
 					'port' => 587
 			);
+           /* $config = array(
+                'auth' => 'login',
+                'username' => 'uvt.finance@gmail.com',
+                'password' => 'uvt.finance20142014',
+                'ssl' => 'ssl',
+                'port' => 465
+            );
+            */
 	
 			$mailTransport = new Zend_Mail_Transport_Smtp('smtp.gmail.com', $config);
 			Zend_Mail::setDefaultTransport($mailTransport);

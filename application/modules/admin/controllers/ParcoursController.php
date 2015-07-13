@@ -46,11 +46,22 @@ class Admin_ParcoursController extends Zend_Controller_Action
     
     public function createAction()
     {
+       // $this->getFrontController()->getRequest()->setParams($_GET);
+        $parametablissement = $this->_getParam('etablissement', '');
+        $this->view->assign('parametablissement' , $parametablissement);
+
         $form = new Application_Myforms_EditParcours();
             
         if ($this->_request->isPost()) {
             if ($form->isValid($this->_request->getPost())) {
                 $values = $form->getValues();
+                $diplome=new Application_Mytables_Diplome();
+                $rowdiplome=$diplome->find($values ['diplome_specialite'])->current();
+                $tablibelle=array();
+                $tablibelle=explode(' ',$rowdiplome->getLibelle());
+                $values ['code']=$tablibelle[0][0].$tablibelle[1][0].'/'.$values ['domaine'].'/'.$values ['mention'].'/'.$values ['diplome_specialite'];
+                //print_r($values);exit;
+
                     
                 $tableParcours = new Application_Model_Parcours_DbTable();
                 $tableParcours->insert($values);
@@ -79,7 +90,15 @@ class Admin_ParcoursController extends Zend_Controller_Action
         if ($this->_request->isPost()) {
             if ($form->isValid($this->_request->getPost())) {
                 $values = $form->getValues();
-        
+
+                $diplome=new Application_Mytables_Diplome();
+                $rowdiplome=$diplome->find($values ['diplome_specialite'])->current();
+                $tablibelle=array();
+                $tablibelle=explode(' ',$rowdiplome->getLibelle());
+                $values ['code']=$tablibelle[0][0].$tablibelle[1][0].'/'.$values ['domaine'].'/'.$values ['mention'].'/'.$values ['diplome_specialite'];
+                //print_r($values);exit;
+
+
                 $where = array('id = ?' => $id);
         
                 $tableParcours->update($values, $where);

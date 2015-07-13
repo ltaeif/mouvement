@@ -20,13 +20,15 @@ $dirdemande=(isset($_POST['dirdemande'])  )? $_POST['dirdemande'] : (isset($_GET
 $urldemande=(isset($_POST['urldemande'])  )? $_POST['urldemande'] : "";
 $demande_codedem=(isset($_POST['demande_codedem'])  )? $_POST['demande_codedem'] : (isset($_GET['demande_codedem'])) ? $_GET['demande_codedem'] : "";
 
+
+
 $options = array(
     'delete_type' => "POST",
     'db_host' => "localhost",
     'db_user' => "root",
     'db_pass' => "",
-    'db_name' => "bduma",
-    'db_table' => "files",
+    'db_name' => "bduma_nouveau",
+    'db_table' => "files_etablissement",
 	'demande_codedem'=>$demande_codedem
 );
 

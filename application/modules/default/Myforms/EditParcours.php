@@ -33,15 +33,15 @@ class Application_Myforms_EditParcours extends Zend_Form
         $this->addElement(
             $this->createElement('select', 'annee_universitaire')
                 ->setLabel('Annee Universitaire')
-                ->setMultiOptions(array("" => "- - Select - -") + $tableAnneeUniversitaire->fetchPairs())
+                ->setMultiOptions(array("" => "- - Select - -") + $tableAnneeUniversitaire->fetchPairs(null,'annee DESC'))
                 ->setRequired(true)
         );
 
-        $tableDomaine = new Application_Model_Domaine_DbTable();
+        $tableDomaine = new Application_Mytables_Domaine();
         $this->addElement(
             $this->createElement('select', 'domaine')
                 ->setLabel('Domaine')
-                ->setMultiOptions(array("" => "- - Select - -") + $tableDomaine->fetchPairs())
+                ->setMultiOptions(array("" => "- - Select - -") + $tableDomaine->fetchPairsExtended())
                 ->setRequired(true)
         );
 

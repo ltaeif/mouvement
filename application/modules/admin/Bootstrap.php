@@ -67,14 +67,30 @@ protected function _initConfiguration()
 		$etudiantstore=Application_Mytables_Authentif::getCurrent();
 		//print_r($etudiantstore);
 		$view->etudiantstore = $etudiantstore;
+
+
 		
 		$viewRenderer->setView($view);
 		
 		return $view;
 	}
-	
-	
-   
+
+
+
+    protected function _initNavigationXml()
+    {
+       /* $this->bootstrap('layout');
+        $layout = $this->getResource('layout');
+        $view = $layout->getView();
+        $config = new Zend_Config_Xml(APPLICATION_PATH.'/configs/navigation.xml');
+
+        $navigation = new Zend_Navigation($config);
+        $view->navigation($navigation);
+        */
+    }
+
+
+
 	/**
 	 * @return Zend_Navigation
 	 */

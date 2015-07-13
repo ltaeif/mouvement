@@ -130,7 +130,8 @@ abstract class Application_Model_Mutation_DbTable_Abstract extends Zend_Db_Table
     public function getDbSelectByParams($params = array(), $sortField = '', $sortOrder = '')
     {
         $select = $this->select(true);
-        
+        $select ->setIntegrityCheck(false); // ADD This Line
+
         if ($sortField != '' && $sortOrder != '') {
             if ('desc' === strtolower($sortOrder)) {
                 $sortOrder = 'DESC';
@@ -139,7 +140,14 @@ abstract class Application_Model_Mutation_DbTable_Abstract extends Zend_Db_Table
             }
             $select->order("$sortField $sortOrder");
         }
-        
+        if (isset($params['etat']) && !empty($params['etat'])) {
+
+            $select->join(array('demande' => 'demande'),
+                'mutation.codedem = demande.codedem')
+                ->where('etat = ?', $params['etat']);;
+        }
+
+
         if (isset($params['codedem']) && !empty($params['codedem'])) {
             $select->where('codedem = ?', $params['codedem']);
         }

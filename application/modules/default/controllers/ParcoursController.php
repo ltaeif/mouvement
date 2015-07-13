@@ -112,4 +112,59 @@ class Default_ParcoursController extends Zend_Controller_Action
         $this->_helper->redirector('index');
         exit;
     }
+
+
+    public function getparcoursAction()
+    {
+
+        $this->getFrontController()->getRequest()->setParams($_GET);
+
+
+        //Get Information Etablissement
+
+        $tableEtablissement = new Application_Model_Etablissement_DbTable();
+
+        $id = (int) $this->_getParam('etablissement', 0);
+
+        $row = $tableEtablissement->find($id)->current();
+
+        if (!$row) {
+            $this->_helper->redirector('liste');
+            exit;
+        }
+
+       // print_r($row);exit;
+
+        $this->view->assign('etbablissementobj' , $row);
+
+        //end iinformation etablissement
+
+
+
+        // zsf = zodeken sort field, zso = zodeken sort order
+        $sortField = $this->_getParam('_sf', '');
+        $sortOrder = $this->_getParam('_so', '');
+        $pageNumber = $this->_getParam('page', 1);
+
+        $tableParcours = new Application_Model_Parcours_DbTable();
+        $gridSelect = $tableParcours->getDbSelectByParams($this->_getAllParams(), $sortField, $sortOrder);
+
+        $paginator = Zend_Paginator::factory($gridSelect);
+        $paginator->setItemCountPerPage(20)
+            ->setCurrentPageNumber($pageNumber);
+
+        $this->view->assign(array(
+            'paginator' => $paginator,
+            'sortField' => $sortField,
+            'sortOrder' => $sortOrder,
+            'pageNumber' => $pageNumber,
+        ));
+
+        foreach ($this->_getAllParams() as $paramName => $paramValue)
+        {
+            // prepend 'param' to avoid error of setting private/protected members
+            $this->view->assign('param' . $paramName, $paramValue);
+        }
+    }
+
 }

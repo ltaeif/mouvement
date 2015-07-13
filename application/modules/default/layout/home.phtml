@@ -33,7 +33,11 @@
 			.hidden {
 			    display: none;
 			}
+
+
+             select {width: 180px;}
     </style>
+
 	
 	
  
@@ -280,6 +284,8 @@ jQuery(document).ready(function () {
                 
             <div class="navbar-default sidebar" role="navigation">
         <div class="sidebar-nav navbar-collapse">
+
+
             <ul class="nav" id="side-menu">
                 <li class="sidebar-search">
                     <div class="input-group custom-search-form">
@@ -316,8 +322,14 @@ jQuery(document).ready(function () {
                     </ul>
                     <!-- /.nav-second-level -->
                 </li>
+                <!--<li>
+                    <a href="<?=$this->url(array("action"=>"liste","controller"=>"etablissement"),null,true)?>">
+                        <i class="fa fa-th-list"></i> Consulter parcours pedagogiques</a>
+                </li>
+                -->
                 <li>
-                    <a href="<?=$this->url(array("action"=>"index","controller"=>"parcours"),null,true)?>"><i class="fa fa-th-list"></i> Consulter parcours pedagogiques</a>
+                    <a href="<?=$this->url(array("action"=>"liste","controller"=>"etablissement"),null,true)?>">
+                        <i class="fa fa-th-list"></i> Consulter parcours pedagogiques</a>
                 </li>
                 <li>
                     <a href="<?=$this->url(array("module"=>"default","action"=>"etat","controller"=>"Demande"))?>"><i class="fa fa-flag"></i> Consulter résultat</a>
@@ -336,7 +348,12 @@ jQuery(document).ready(function () {
         </nav>
 
         <div id="page-wrapper">
-            
+
+            <br></br>
+            <div class="form-actions">
+
+                <INPUT  class="btn" type="button" value="Précédent" onclick="history.back()">
+            </div>
 				<?php echo $this->layout()->content ?>
 				
         </div>

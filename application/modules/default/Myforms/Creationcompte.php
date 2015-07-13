@@ -45,7 +45,7 @@ class Application_Myforms_Creationcompte  extends Zend_Form
 	    $sex->addMultiOptions(array('M'=>'M','F'=>'F' ));
 	    $sex->setLabel($translate->_('Sexe  :'));
 	    $sex->setRequired(true)
-	    ->setAttrib('class','validate[required]')
+	    ->setAttrib('class',' validate[required]')
 	    ->addDecorator('HtmlTag',array('tag' => 'div', 'id' => 'sex') );
 	    $sex->setSeparator("");
 	    	    
@@ -54,20 +54,20 @@ class Application_Myforms_Creationcompte  extends Zend_Form
 	    $nom = new Zend_Form_Element_Text('nom');
 	    $nom->setRequired(true)
 	    ->addValidators(array(new Zend_Validate_StringLength(3,45)))
-	    ->setAttrib("class", "validate[required,minSize[3],maxSize[45]]")
+	    ->setAttrib("class", " form-control  validate[required,minSize[3],maxSize[45]]")
 	    ->setAttrib("style", "width:60%;");
 	    $nom->setLabel($translate->_('nom').'* : ');
 	    
 	    $prenom = new Zend_Form_Element_Text('prenom');
 	    $prenom->setRequired(true)
 	    ->addValidators(array(  new Zend_Validate_StringLength(3,45)))
-	    ->setAttrib("class", "validate[required,minSize[3],maxSize[45]]")
+	    ->setAttrib("class", " form-control validate[required,minSize[3],maxSize[45]]")
 	    ->setAttrib("style", "width:60%;");
 	    $prenom->setLabel($translate->_('prenom').'* : ');  
 	    
 	    $email = new Zend_Form_Element_Text('email');
 	    $email->setRequired(true)
-	    ->setAttrib("class", "validate[required,custom[email]]")
+	    ->setAttrib("class", "form-control validate[required,custom[email]]")
 	    ->setAttrib("style", "width:60%;") 
 	    ->setAttrib("onchange",  "AjaxVerif('".$urlhelper."/default/gestauth/verifuser',this.value,'email','emaildiv')");
 	    $email->setLabel($translate->_('E-mail').' * : ');
@@ -77,7 +77,7 @@ class Application_Myforms_Creationcompte  extends Zend_Form
 	    
 	    $CIN = new Zend_Form_Element_Text('CIN');
 	    $CIN->setRequired(true)
-	    ->setAttrib("class", "validate[required,maxSize[8],minSize[8]]")
+	    ->setAttrib("class", "form-control validate[required,maxSize[8],minSize[8]]")
 	    ->addValidators(array(new Zend_Validate_Int(), new Zend_Validate_StringLength(8)))
 	    ->setAttrib("style", "width:60%;")
 	    ->setAttrib("onchange",  "AjaxVerif('".$urlhelper."/default/gestauth/verifuser',this.value,'cin','cindiv')");
@@ -86,6 +86,7 @@ class Application_Myforms_Creationcompte  extends Zend_Form
 	    
 	    $ville= new Zend_Form_Element_Text('ville');
 	    $ville->setRequired(false)
+            ->setAttrib("class", "form-control ")
 	    ->setAttrib("style", "width:60%;");;
 	    $ville->setLabel($translate->_('ville').' * : ');
 	    
@@ -126,12 +127,12 @@ class Application_Myforms_Creationcompte  extends Zend_Form
 	    $pays->setValue("TN");*/
 	    $password = new Zend_Form_Element_Password('password');
 	    $password->setRequired(false);
-	    $password->setAttrib("class", "validate[required]  text-input");
+	    $password->setAttrib("class", "form-control validate[required]  text-input")  ->setAttrib("style", "width:60%;");
 	    $password->setLabel('Mot de passe');
 
 	    $passwordcnf = new Zend_Form_Element_Password('passwordcnf');
-	    $passwordcnf->setRequired(false);
-	    $passwordcnf->setAttrib("class", "validate[required,equals[password]]  text-input");
+	    $passwordcnf->setRequired(false)  ->setAttrib("style", "width:60%;");
+	    $passwordcnf->setAttrib("class", "form-control validate[required,equals[password]]  text-input");
 	    $passwordcnf->setLabel('Confirmer mot de passe');
 	    
 	     	    

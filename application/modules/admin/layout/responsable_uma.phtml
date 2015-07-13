@@ -17,7 +17,13 @@
     <?php $this->headLink()->appendStylesheet($this->baseUrl().'/bower_components/metisMenu/dist/metisMenu.min.css'); ?>  
     <?php 
     $this->headScript()->appendFile($this->baseUrl().'/bower_components/jquery/dist/jquery.min.js');
-    $this->headScript()->appendFile($this->baseUrl().'/bower_components/bootstrap/dist/js/bootstrap.min.js'); ?>
+    $this->headScript()->appendFile($this->baseUrl().'/bower_components/bootstrap/dist/js/bootstrap.min.js');
+
+
+    $this->headScript()->appendFile($this->baseUrl().'/js/quickselect/chosen.jquery.js');
+    $this->headLink()->appendStylesheet($this->baseUrl().'/js/quickselect/chosen.css');
+
+    ?>
     <!-- MetisMenu CSS -->
  
      
@@ -162,6 +168,16 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+
+
+    <script>
+
+        jQuery(document).ready(function () {
+
+            $('select').chosen();
+
+        });
+    </script>
 </head>   
 
 

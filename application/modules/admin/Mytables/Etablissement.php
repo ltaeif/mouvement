@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 class Application_Mytables_Etablissement extends Application_Model_Etablissement_DbTable
 {	
